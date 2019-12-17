@@ -15,6 +15,7 @@ void Trip::showTrip() const
 
 bool Trip::writeToStream(ostream& out){
     out<<"0 " << start->getName()<<" "<<destination->getName()<<" "<< means<<endl;
+	return true;
 }
 
 Town& Trip::getEnd() const

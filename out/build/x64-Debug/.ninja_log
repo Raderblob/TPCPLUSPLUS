@@ -1,0 +1,7 @@
+# ninja log v5
+5	403	598319826	CMakeFiles/TP3.dir/Town.cpp.obj	9988a8a4d1a4b40e
+0	413	598319826	CMakeFiles/TP3.dir/TP3.cpp.obj	66d144ea262ddc67
+2	369	598319892	CMakeFiles/TP3.dir/ComplexeTrip.cpp.obj	2e1e0b0743dd359b
+3	370	598319892	CMakeFiles/TP3.dir/Trip.cpp.obj	9bc5b2bda5718a3f
+0	400	598319892	CMakeFiles/TP3.dir/Catalogue.cpp.obj	c21d451b8634168
+401	1003	598319893	TP3.exe	572cd6f20aecf5f2
