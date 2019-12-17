@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/richard/Documents/Cpluplus/TP3/Catalogue.cpp
+iostream
+-
+sstream
+-
+cstring
+-
+Catalogue.h
+/home/richard/Documents/Cpluplus/TP3/Catalogue.h
+Trip.h
+/home/richard/Documents/Cpluplus/TP3/Trip.h
+ComplexeTrip.h
+/home/richard/Documents/Cpluplus/TP3/ComplexeTrip.h
+
+/home/richard/Documents/Cpluplus/TP3/Catalogue.h
+Town.h
+/home/richard/Documents/Cpluplus/TP3/Town.h
+
+/home/richard/Documents/Cpluplus/TP3/ComplexeTrip.h
+Trip.h
+/home/richard/Documents/Cpluplus/TP3/Trip.h
+LinkedList.h
+/home/richard/Documents/Cpluplus/TP3/LinkedList.h
+
+/home/richard/Documents/Cpluplus/TP3/LinkedList.h
+
+/home/richard/Documents/Cpluplus/TP3/Town.h
+LinkedList.h
+/home/richard/Documents/Cpluplus/TP3/LinkedList.h
+iostream
+-
+
+/home/richard/Documents/Cpluplus/TP3/Trip.h
+iostream
+-
+
