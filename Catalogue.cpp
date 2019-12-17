@@ -43,7 +43,7 @@ bool Catalogue::saveCatalogue(ostream& out) {
     }
 
     out<<res<<endl<<tempOut.str();
-	return true;
+	return out.good();
 }
 
 

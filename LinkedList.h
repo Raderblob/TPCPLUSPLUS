@@ -17,6 +17,7 @@ public:
 	T* resetCursor();
 	bool contains(const T& val)const;
 
+	const Item<T>* getIterator()const;
 
 	LinkedList(bool ClearOnDeletion = true);
 	LinkedList(const LinkedList<T>& oList);
@@ -109,6 +110,12 @@ inline bool LinkedList<T>::contains(const T& val)const
 		}
 	}
 	return false;
+}
+
+template<class T>
+inline const Item<T>* LinkedList<T>::getIterator() const
+{
+	return root;
 }
 
 

@@ -21,7 +21,7 @@ bool ComplexeTrip::writeToStream(ostream& out){
         out<<stopOffs[i].t->getName()<<DELIMITER<<stopOffs[i].method<<DELIMITER;
     }
     out<<endl;
-	return true;
+	return out.good();
 }
 
 ComplexeTrip::ComplexeTrip(Town* begin, Town* end, const char* how, Town** stops, char** stopMeans, int numStops):Trip(begin,end,how)

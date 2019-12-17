@@ -14,8 +14,8 @@ public:
 
 	virtual bool writeToStream(ostream& out);
 
-	Town& getStart()const;
-	Town& getEnd() const;
+	const Town& getStart()const;
+	const Town& getEnd() const;
 	bool getIsSimple() const;
 
 	Trip(Town* begin,Town* end,const char* how);

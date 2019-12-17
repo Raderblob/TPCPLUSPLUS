@@ -9,7 +9,7 @@ class Town
 {
 public:
 
-	int findPath(const LinkedList<const Town>& path, const Town& objective,const LinkedList<const Trip>& trips);
+	int findPath(const LinkedList<const Town>& path, const Town& objective,const LinkedList<const Trip>& trips) const;
 
     int saveTrips(std::ostream & out,typeSelection& tripType);
 

@@ -5,11 +5,16 @@
 
 using namespace std;
 
-int Town::findPath(const LinkedList<const Town>& path, const Town& objective, const LinkedList<const Trip>& trips)
+int Town::findPath(const LinkedList<const Town>& path, const Town& objective, const LinkedList<const Trip>& trips) const
 {
 	int res=0;
-	outboundTrips.resetCursor();
-	for (Trip* i = outboundTrips.getNextItem(); i != nullptr; i = outboundTrips.getNextItem()) {
+	const Item<Trip>* iterator = outboundTrips.getIterator();
+	if (iterator == nullptr) {
+		return res;
+	}
+
+	for (Trip* i = iterator->thisItem; iterator != nullptr;iterator = iterator->nextItem) {
+		i = iterator->thisItem;
 		if (!path.contains(i->getEnd())) {
 			LinkedList<const Trip>* newTrips = new LinkedList<const Trip>(trips);
 			LinkedList<const Town>* newPath = new LinkedList<const Town>(path);
