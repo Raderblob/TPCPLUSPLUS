@@ -9,7 +9,7 @@ else
 	LDFLAGS=
 endif
 EXEC = TestMain
-SRC= TP2_2.cpp Catalogue.cpp ComplexeTrip.cpp Town.cpp Trip.cpp
+SRC= TP3.cpp Catalogue.cpp ComplexeTrip.cpp Town.cpp Trip.cpp
 OBJ= $(SRC:.cpp=.o)
 HEDR = $(SRC:.cpp=.h)
 
@@ -25,7 +25,7 @@ endif
 $(EXEC): $(OBJ)
 	g++ -o $@ $^ $(LDFLAGS)
 
-TP2_2.o: TP2_2.cpp
+TP3.o: TP3.cpp
 	g++ -c $< $(CFLAGS)
 
 %.o: %.cpp %.h

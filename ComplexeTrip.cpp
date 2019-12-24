@@ -1,9 +1,30 @@
+/*************************************************************************
+                           TrajetCompose  -  Inheriting from TrajetSimple, It adds stop off points during the trip
+                             -------------------
+    début                : $DATE$
+    copyright            : (C) $YEAR$ par $AUTHOR$
+    e-mail               : $EMAIL$
+*************************************************************************/
+
+//---------- Réalisation de la classe <TrajetCompose> (fichier TrajetCompose.cpp) ------------
+
+//---------------------------------------------------------------- INCLUDE
+
+//-------------------------------------------------------- Include système
 #include <iostream>
 #include <cstring>
+
+//------------------------------------------------------ Include personnel
 #include "Town.h"
 #include "ComplexeTrip.h"
 
 using namespace std;
+
+//------------------------------------------------------------- Constantes
+
+//----------------------------------------------------------------- PUBLIC
+
+//----------------------------------------------------- Méthodes publiques
 
 void ComplexeTrip::showTrip() const
 {
@@ -24,6 +45,12 @@ bool ComplexeTrip::writeToStream(ostream& out){
 	return out.good();
 }
 
+//------------------------------------------------- Surcharge d'opérateurs
+
+
+
+//-------------------------------------------- Constructeurs - destructeur
+
 ComplexeTrip::ComplexeTrip(Town* begin, Town* end, const char* how, Town** stops, char** stopMeans, int numStops):Trip(begin,end,how)
 {
 	numStopOffs = numStops;
@@ -43,3 +70,7 @@ ComplexeTrip::~ComplexeTrip()
 	}
 	delete[] stopOffs;
 }
+
+//------------------------------------------------------------------ PRIVE
+
+//----------------------------------------------------- Méthodes protégées

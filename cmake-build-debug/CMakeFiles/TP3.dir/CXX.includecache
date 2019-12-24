@@ -24,6 +24,16 @@ ComplexeTrip.h
 Town.h
 /home/richard/Documents/Cpluplus/TP3/Town.h
 
+/home/richard/Documents/Cpluplus/TP3/ComplexeTrip.cpp
+iostream
+-
+cstring
+-
+Town.h
+/home/richard/Documents/Cpluplus/TP3/Town.h
+ComplexeTrip.h
+/home/richard/Documents/Cpluplus/TP3/ComplexeTrip.h
+
 /home/richard/Documents/Cpluplus/TP3/ComplexeTrip.h
 Trip.h
 /home/richard/Documents/Cpluplus/TP3/Trip.h
@@ -32,11 +42,41 @@ LinkedList.h
 
 /home/richard/Documents/Cpluplus/TP3/LinkedList.h
 
+/home/richard/Documents/Cpluplus/TP3/TP3.cpp
+iostream
+-
+fstream
+-
+cstring
+-
+Catalogue.h
+/home/richard/Documents/Cpluplus/TP3/Catalogue.h
+
+/home/richard/Documents/Cpluplus/TP3/Town.cpp
+iostream
+-
+cstring
+-
+Town.h
+/home/richard/Documents/Cpluplus/TP3/Town.h
+Trip.h
+/home/richard/Documents/Cpluplus/TP3/Trip.h
+
 /home/richard/Documents/Cpluplus/TP3/Town.h
 LinkedList.h
 /home/richard/Documents/Cpluplus/TP3/LinkedList.h
 iostream
 -
+
+/home/richard/Documents/Cpluplus/TP3/Trip.cpp
+cstring
+-
+iostream
+-
+Trip.h
+/home/richard/Documents/Cpluplus/TP3/Trip.h
+Town.h
+/home/richard/Documents/Cpluplus/TP3/Town.h
 
 /home/richard/Documents/Cpluplus/TP3/Trip.h
 iostream

@@ -1,9 +1,29 @@
+/*************************************************************************
+                           TrajetSimple  -  A class holding start end and means of a trip
+                             -------------------
+    début                : $DATE$
+    copyright            : (C) $YEAR$ par $AUTHOR$
+    e-mail               : $EMAIL$
+*************************************************************************/
+
+//---------- Réalisation de la classe <TrajetSimple> (fichier TrajetSimple.cpp) ------------
+
+//---------------------------------------------------------------- INCLUDE
+
+//-------------------------------------------------------- Include système
 #include <cstring>
 #include <iostream>
+using namespace std;
+
+//------------------------------------------------------ Include personnel
 #include "Trip.h"
 #include "Town.h"
+//------------------------------------------------------------- Constantes
 
-using namespace std;
+//----------------------------------------------------------------- PUBLIC
+
+//----------------------------------------------------- Méthodes publiques
+
 
 
 
@@ -27,6 +47,11 @@ bool Trip::getIsSimple() const {
     return isSimple;
 }
 
+//------------------------------------------------- Surcharge d'opérateurs
+
+
+//-------------------------------------------- Constructeurs - destructeur
+
 Trip::Trip(Town* begin, Town* end, const char* how)
 {
 	start = begin;
@@ -41,3 +66,6 @@ Trip::~Trip()
 {
 	delete[] means;
 }
+//------------------------------------------------------------------ PRIVE
+
+//----------------------------------------------------- Méthodes protégées

@@ -1,16 +1,38 @@
-#pragma once
+/*************************************************************************
+                           LinkedList  -
+                             -------------------
+    début                : $DATE$
+    copyright            : (C) $YEAR$ par $AUTHOR$
+    e-mail               : $EMAIL$
+*************************************************************************/
 
+//---------- Interface de la classe <LinkedList> (fichier LinkedList.h) ----------------
+#if ! defined ( LINKEDLIST_H )
+#define LINKEDLIST_H
+//--------------------------------------------------- Interfaces utilisées
+
+//------------------------------------------------------------- Constantes
+
+//------------------------------------------------------------------ Types
 template<class T>
 struct Item {
-	struct Item* nextItem;
-	T* thisItem;
+    struct Item* nextItem;
+    T* thisItem;
 };
+//------------------------------------------------------------------------
+//
+//
+//
+//------------------------------------------------------------------------
+
 
 
 template<class T>
 class LinkedList
 {
+//----------------------------------------------------------------- PUBLIC
 public:
+//----------------------------------------------------- Méthodes publiques
 	void addItem(T* newItem);
 	void removeItem(const T& selectItem);
 	T* getNextItem() ;
@@ -19,18 +41,25 @@ public:
 
 	const Item<T>* getIterator()const;
 
+//------------------------------------------------- Surcharge d'opérateurs
+
+
+//-------------------------------------------- Constructeurs - destructeur
 	LinkedList(bool ClearOnDeletion = true);
 	LinkedList(const LinkedList<T>& oList);
 	virtual ~LinkedList();
+//------------------------------------------------------------------ PRIVE
 
-	
 private:
+//----------------------------------------------------- Méthodes protégées
+
+//----------------------------------------------------- Attributs protégés
 	Item<T>* root;
 	int numItems;
 	Item<T>* cursor;
 	bool deleteContentsOnDeletion;
 };
-
+//-------------------------------- Autres définitions dépendantes de <TrajetCompose>
 template<class T>
 inline void LinkedList<T>::addItem(T* newItem) {
 	Item<T>* newCell = new Item<T>;
@@ -160,3 +189,4 @@ inline LinkedList<T>::~LinkedList()
 		}
 	
 }
+#endif // LINKED_LIST_H

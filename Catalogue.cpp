@@ -1,14 +1,34 @@
+/*************************************************************************
+                           Catalogue  -  Contains the main library and the branch network.
+                           Contains fonctions that allows users to interact with the information
+                             -------------------
+    début                : $DATE$
+    copyright            : (C) $YEAR$ par $AUTHOR$
+    e-mail               : $EMAIL$
+*************************************************************************/
+
+//---------- Réalisation de la classe <Catalogue> (fichier Catalogue.cpp) ------------
+
+//---------------------------------------------------------------- INCLUDE
+
+//-------------------------------------------------------- Include système
 #include <iostream>
 #include <sstream>
 #include <cstring>
+
+//------------------------------------------------------ Include personnel
 #include "Catalogue.h"
 #include "Trip.h"
 #include "ComplexeTrip.h"
 
 using namespace std;
+
+//------------------------------------------------------------- Constantes
 const int INPUTBUFFER = 100;
 
+//----------------------------------------------------------------- PUBLIC
 
+//----------------------------------------------------- Méthodes publiques
 
 int Catalogue::findPath()
 {
@@ -204,6 +224,11 @@ Town* Catalogue::addOrGetTown(const char* townName)
 	return i;
 }
 
+//------------------------------------------------- Surcharge d'opérateurs
+
+
+
+//-------------------------------------------- Constructeurs - destructeur
 Catalogue::Catalogue()
 {
 
@@ -212,3 +237,7 @@ Catalogue::Catalogue()
 Catalogue::~Catalogue()
 {
 }
+
+//------------------------------------------------------------------ PRIVE
+
+//----------------------------------------------------- Méthodes protégées

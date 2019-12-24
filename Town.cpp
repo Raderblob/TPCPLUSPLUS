@@ -1,9 +1,28 @@
+/*************************************************************************
+                           TOWN
+                             -------------------
+    début                : $DATE$
+    copyright            : (C) $YEAR$ par $AUTHOR$
+    e-mail               : $EMAIL$
+*************************************************************************/
+
+//---------- Réalisation de la classe <Town> (fichier Town.cpp) ------------
+
+//---------------------------------------------------------------- INCLUDE
+
+//-------------------------------------------------------- Include système
 #include <iostream>
 #include <cstring>
+//------------------------------------------------------ Include personnel
 #include "Town.h"
 #include "Trip.h"
 
 using namespace std;
+//------------------------------------------------------------- Constantes
+
+//----------------------------------------------------------------- PUBLIC
+
+//----------------------------------------------------- Méthodes publiques
 
 int Town::findPath(const LinkedList<const Town>& path, const Town& objective, const LinkedList<const Trip>& trips) const
 {
@@ -81,11 +100,15 @@ bool Town::isCalled(const char* tName)const {
 	return !strcmp(myName, tName);
 }
 
+
+//------------------------------------------------- Surcharge d'opérateurs
 bool Town::operator==(const Town& oTown)const
 {
-	return myId==oTown.myId;
+    return myId==oTown.myId;
 }
 
+
+//-------------------------------------------- Constructeurs - destructeur
 Town::Town(const char* tName) {
 	static int idCounter = 0;
 	myName = new char[strlen(tName)+1];
@@ -97,3 +120,6 @@ Town::Town(const char* tName) {
 Town::~Town() {
 	delete[] myName;
 }
+//------------------------------------------------------------------ PRIVE
+
+//----------------------------------------------------- Méthodes protégées
