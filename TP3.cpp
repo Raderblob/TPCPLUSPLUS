@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <sstream>
 #include "Catalogue.h"
 using namespace std;
 
@@ -48,8 +49,15 @@ void testLeak() {
                 //char* line;
                 int numLines;
                 inputFile>> numLines;
+                inputFile.ignore(INPUTBUFFERSIZE,'\n');
                 for (int i = 0; i < numLines; ++i) {
-                    myCatalogue.addTrip(inputFile,false);
+                    string lineBuffer;
+                    getline(inputFile,lineBuffer);
+                    stringstream lineStream;
+                    lineStream.str(lineBuffer);
+
+                    myCatalogue.addTrip(lineStream,false,' ');
+                   // inputFile.ignore(INPUTBUFFERSIZE,'\n');
                 }
                    // stringstream lineStream(line);
 

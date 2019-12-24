@@ -40,7 +40,7 @@ public:
 
 
 
-	void addTrip(std::istream& input=std::cin,bool echo = true);
+	void addTrip(std::istream& input=std::cin,bool echo = true,char inputDelimiter = '\n');
 
 	void showTrips();
 
@@ -64,6 +64,7 @@ private:
     int findPath(const char* a, const char* b);
 	Town* addOrGetTown(const char* townName);
 
+	void replaceCharacter(char* string,const char oldChar,const char newChar);
 //----------------------------------------------------- Attributs protégés
 	LinkedList<Town> allTowns;
 

@@ -32,11 +32,14 @@ const int INPUTBUFFER = 100;
 
 int Catalogue::findPath()
 {
+    cin.ignore(INPUTBUFFER,'\n');
 	char buffer1[INPUTBUFFER],buffer2[INPUTBUFFER];
 	cout << "From: ";
-	cin >> buffer1;
+	cin.getline(buffer1,INPUTBUFFER);
+	replaceCharacter(buffer1,' ','-');
 	cout << " To: ";
-	cin >> buffer2;
+    cin.getline(buffer2,INPUTBUFFER);
+    replaceCharacter(buffer2,' ','-');
 	return findPath(buffer1, buffer2);
 }
 bool Catalogue::saveCatalogue(ostream& out) {
@@ -67,7 +70,7 @@ bool Catalogue::saveCatalogue(ostream& out) {
 }
 
 
-void Catalogue::addTrip(istream& input,bool echo)
+void Catalogue::addTrip(istream& input,bool echo,char inputDelimiter)
 {
 
 	int numStops;
@@ -77,26 +80,39 @@ void Catalogue::addTrip(istream& input,bool echo)
     if(echo) {
         cout << "Number of stopoff points\n";
     }
-    input >> numStops;
-
+    do {
+        if(input.fail()){
+            input.clear();
+            input.ignore(INPUTBUFFER,'\n');
+            cout<<"input wrong try again"<<endl;
+        }
+        input >> numStops;
+    }while(input.fail());
     if(echo) {
         cout << "Enter starting point\n";
     }
-    input >> buffer;
+    input.ignore(INPUTBUFFER,inputDelimiter);
+    input.getline(buffer,INPUTBUFFER,inputDelimiter);
+    replaceCharacter(buffer,' ','-');
+
 	startingPoint = new char[strlen(buffer) + 1];
 	strcpy(startingPoint, buffer);
 
     if(echo) {
         cout << "Enter End point\n";
     }
-    input >> buffer;
+    input.getline(buffer,INPUTBUFFER,inputDelimiter);
+    replaceCharacter(buffer,' ','-');
+
 	finishingPoint = new char[strlen(buffer) + 1];
 	strcpy(finishingPoint, buffer);
 
     if(echo) {
         cout << "Enter means of transport\n";
     }
-    input >> buffer;
+    input.getline(buffer,INPUTBUFFER,inputDelimiter);
+    replaceCharacter(buffer,' ','-');
+
 	meansOfTransport = new char[strlen(buffer) + 1];
 	strcpy(meansOfTransport, buffer);
 
@@ -112,14 +128,18 @@ void Catalogue::addTrip(istream& input,bool echo)
             if(echo) {
                 cout << i << " st stop\n";
             }
-            input >> buffer;
+            input.getline(buffer,INPUTBUFFER,inputDelimiter);
+            replaceCharacter(buffer,' ','-');
+
 			stops[i] = new char[strlen(buffer) + 1];
 			strcpy(stops[i], buffer);
 
             if(echo) {
-                cout << i << " st means\n";
+                cout << i+1 << " st means\n";
             }
-            input >> buffer;
+            input.getline(buffer,INPUTBUFFER,inputDelimiter);
+            replaceCharacter(buffer,' ','-');
+
 			stopMeans[i] = new char[strlen(buffer) + 1];
 			strcpy(stopMeans[i], buffer);
 		}
@@ -136,50 +156,71 @@ void Catalogue::showTrips()
 	}
 }
 
+
+
+//------------------------------------------------- Surcharge d'opérateurs
+
+
+
+//-------------------------------------------- Constructeurs - destructeur
+Catalogue::Catalogue()
+{
+
+}
+
+Catalogue::~Catalogue()
+{
+}
+
+
+
+//------------------------------------------------------------------ PRIVE
+
+//----------------------------------------------------- Méthodes protégées
 void Catalogue::addTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport)
 {
-	Town* i,*o;
-	i = addOrGetTown(startingPoint);
+    Town* i,*o;
+    i = addOrGetTown(startingPoint);
 
-	o = addOrGetTown(finishingPoint);
+    o = addOrGetTown(finishingPoint);
 
-	Trip* newTrip = new Trip(i, o, meansOfTransport);
-	i->addTrip(newTrip);
-	delete[] startingPoint;
-	delete[] finishingPoint;
-	delete[] meansOfTransport;
+    Trip* newTrip = new Trip(i, o, meansOfTransport);
+    i->addTrip(newTrip);
+    delete[] startingPoint;
+    delete[] finishingPoint;
+    delete[] meansOfTransport;
 }
 
 void Catalogue::addComplexeTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport, char** stops, char** stopMeans, int numStops)
 {
-	Town* i, * o;
-	Town** nSt = new Town*[numStops];
-
-	
-	for (int cnter = 0; cnter < numStops; ++cnter) {
-		nSt[cnter] = addOrGetTown(stops[cnter]);
-	}
-	
-
-	i = addOrGetTown(startingPoint);
-
-	o = addOrGetTown(finishingPoint);
-
-	Trip* newTrip = new ComplexeTrip(i, o, meansOfTransport,nSt,stopMeans,numStops);
-	i->addTrip(newTrip);
-	delete[] startingPoint;
-	delete[] finishingPoint;
-	delete[] meansOfTransport;
+    Town* i, * o;
+    Town** nSt = new Town*[numStops];
 
 
-	for (int j = 0; j < numStops; ++j) {
-		delete[] stops[j];
-		delete[] stopMeans[j];
-	}
-	delete[] stops;
-	delete[] stopMeans;
+    for (int cnter = 0; cnter < numStops; ++cnter) {
+        nSt[cnter] = addOrGetTown(stops[cnter]);
+    }
 
-	delete[] nSt;
+
+    i = addOrGetTown(startingPoint);
+
+    o = addOrGetTown(finishingPoint);
+
+    Trip* newTrip = new ComplexeTrip(i, o, meansOfTransport,nSt,stopMeans,numStops);
+    i->addTrip(newTrip);
+    delete[] startingPoint;
+    delete[] finishingPoint;
+    delete[] meansOfTransport;
+
+
+    for (int j = 0; j < numStops; ++j) {
+        delete[] stops[j];
+        delete[] stopMeans[j];
+    }
+    delete[] stops;
+    delete[] stopMeans;
+
+    delete[] nSt;
 }
 int Catalogue::findPath(const char* a, const char* b)
 {
@@ -209,35 +250,25 @@ int Catalogue::findPath(const char* a, const char* b)
 }
 Town* Catalogue::addOrGetTown(const char* townName)
 {
-	Town* i;
-	allTowns.resetCursor();
-	for (i = allTowns.getNextItem(); i != nullptr; i = allTowns.getNextItem()) {
-		if (i->isCalled(townName)) {
-			break;
-		}
-	}
-	if (i == nullptr) {
-		Town* newTown = new Town(townName);
-		allTowns.addItem(newTown);
-		i = newTown;
-	}
-	return i;
+    Town* i;
+    allTowns.resetCursor();
+    for (i = allTowns.getNextItem(); i != nullptr; i = allTowns.getNextItem()) {
+        if (i->isCalled(townName)) {
+            break;
+        }
+    }
+    if (i == nullptr) {
+        Town* newTown = new Town(townName);
+        allTowns.addItem(newTown);
+        i = newTown;
+    }
+    return i;
 }
-
-//------------------------------------------------- Surcharge d'opérateurs
-
-
-
-//-------------------------------------------- Constructeurs - destructeur
-Catalogue::Catalogue()
-{
-
+void Catalogue::replaceCharacter(char* aString, const char oldChar, const char newChar) {
+    int stringLen = strlen(aString);
+    for(int i = 0;i<stringLen;++i){
+        if(aString[i]==oldChar){
+            aString[i] = newChar;
+        }
+    }
 }
-
-Catalogue::~Catalogue()
-{
-}
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
