@@ -45,6 +45,10 @@ int Catalogue::findPath()
 bool Catalogue::saveCatalogue(ostream& out) {
     typeSelection tripType = ALL;
     char buffer[INPUTBUFFER];
+    char originSelect[INPUTBUFFER];
+    bool selectCertainTown = false;
+    int startInterval = 0,endInterval = INT32_MAX,intervalCounter =0;
+
     cout<<"save all?(yes/no)"<<endl;
     cin>>buffer;
     if(strcmp(buffer,"yes")){
@@ -56,13 +60,31 @@ bool Catalogue::saveCatalogue(ostream& out) {
             tripType = COMPLEXE;
         }
     }
+    cout<<"Save only from certain town?(yes/no)"<<endl;
+    cin>>buffer;
+    if(strcmp(buffer,"no")){
+        selectCertainTown = true;
+        cout<<"Enter town name:"<<endl;
+        cin>>originSelect;
+    }
+    cout<<"Save only a certain Interval?(yes/no)"<<endl;
+    cin>>buffer;
+    if(strcmp(buffer,"no")){
+        cout<<"Start interval(Starts at 0):"<<endl;
+        cin>>startInterval;
+        cout<<"end interval:"<<endl;
+        cin>>endInterval;
+    }
 
     stringstream tempOut;
     int res = 0;
 
     allTowns.resetCursor();
     for (Town*  i = allTowns.getNextItem(); i!= nullptr ; i=allTowns.getNextItem()) {
-       res+= i->saveTrips(tempOut,tripType);
+        if(!selectCertainTown||i->isCalled(originSelect)) {
+            res += i->saveTrips(tempOut, tripType,startInterval-intervalCounter,endInterval-intervalCounter);
+        }
+        intervalCounter+=i->getNumTrips();
     }
 
     out<<res<<endl<<tempOut.str();

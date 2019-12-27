@@ -14,7 +14,6 @@ void testLeak() {
     cout << "Starting testLeak" << endl;
     char buffer[INPUTBUFFERSIZE];
     Catalogue myCatalogue;
-
     cout << "To add a trip : add"<<endl<<"To show contents : show\nTo search : search\nTo save : save\nTo load : load\nTo exit : exit\n";
     do {
         do {
@@ -57,9 +56,7 @@ void testLeak() {
                     lineStream.str(lineBuffer);
 
                     myCatalogue.addTrip(lineStream,false,' ');
-                   // inputFile.ignore(INPUTBUFFERSIZE,'\n');
                 }
-                   // stringstream lineStream(line);
 
 
 

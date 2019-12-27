@@ -65,15 +65,22 @@ int Town::findPath(const LinkedList<const Town>& path, const Town& objective, co
 	return res;
 }
 
-int Town::saveTrips(ostream& out,typeSelection& tripType) {
+int Town::saveTrips(ostream& out,typeSelection tripType,int startIndex, int endIndex) {
     int res = 0;
+    int indexChecker = 0;
     outboundTrips.resetCursor();
     for (Trip* i = outboundTrips.getNextItem();  i!=nullptr; i=outboundTrips.getNextItem()) {
         if(tripType==ALL || (tripType == SIMPLE && i->getIsSimple()) || (tripType == COMPLEXE && !i->getIsSimple())){
-            i->writeToStream(out);
-            res++;
+            if(indexChecker>=startIndex&&indexChecker<=endIndex) {
+                i->writeToStream(out);
+                res++;
+            }
+            indexChecker++;
         }
 
+        if(indexChecker>endIndex){
+            return res;
+        }
     }
     return res;
 }
@@ -94,12 +101,15 @@ void Town::showTrips()
 void Town::addTrip(Trip* newTrip)
 {
 	outboundTrips.addItem(newTrip);
+	++numTrips;
 }
 
 bool Town::isCalled(const char* tName)const {
 	return !strcmp(myName, tName);
 }
-
+int Town::getNumTrips() const {
+    return numTrips;
+}
 
 //------------------------------------------------- Surcharge d'opérateurs
 bool Town::operator==(const Town& oTown)const
@@ -114,12 +124,15 @@ Town::Town(const char* tName) {
 	myName = new char[strlen(tName)+1];
 	strcpy(myName, tName);
 	myId = idCounter++;
+	numTrips=0;
 }
 
 
 Town::~Town() {
 	delete[] myName;
 }
+
+
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
