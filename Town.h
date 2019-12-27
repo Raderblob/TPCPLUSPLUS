@@ -34,7 +34,7 @@ public:
 //----------------------------------------------------- Méthodes publiques
 	int findPath(const LinkedList<const Town>& path, const Town& objective,const LinkedList<const Trip>& trips) const;
 
-    int saveTrips(std::ostream & out,typeSelection tripType = ALL, int startIndex = 0, int endIndex = INT32_MAX);
+    int saveTrips(std::ostream & out,typeSelection tripType = ALL, int startIndex = 0, int endIndex = INT32_MAX,const Town* endTownSelect = nullptr);
 
 	const char* getName()const;
 

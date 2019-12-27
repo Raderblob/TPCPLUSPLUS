@@ -65,19 +65,20 @@ int Town::findPath(const LinkedList<const Town>& path, const Town& objective, co
 	return res;
 }
 
-int Town::saveTrips(ostream& out,typeSelection tripType,int startIndex, int endIndex) {
+int Town::saveTrips(ostream& out,typeSelection tripType,int startIndex, int endIndex,const Town* endTownSelect) {
     int res = 0;
     int indexChecker = 0;
     outboundTrips.resetCursor();
     for (Trip* i = outboundTrips.getNextItem();  i!=nullptr; i=outboundTrips.getNextItem()) {
         if(tripType==ALL || (tripType == SIMPLE && i->getIsSimple()) || (tripType == COMPLEXE && !i->getIsSimple())){
-            if(indexChecker>=startIndex&&indexChecker<=endIndex) {
-                i->writeToStream(out);
-                res++;
+            if(endTownSelect== nullptr||i->getEnd()==(*endTownSelect)) {
+                if (indexChecker >= startIndex && indexChecker <= endIndex) {
+                    i->writeToStream(out);
+                    res++;
+                }
+                indexChecker++;
             }
-            indexChecker++;
         }
-
         if(indexChecker>endIndex){
             return res;
         }
