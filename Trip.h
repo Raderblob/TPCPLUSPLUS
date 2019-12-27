@@ -29,7 +29,7 @@ public:
 //----------------------------------------------------- Méthodes publiques
 	virtual void showTrip() const;
 
-	virtual bool writeToStream(ostream& out);
+	virtual bool writeToStream(ostream& out)const;
 
 	const Town& getStart()const;
 	const Town& getEnd() const;

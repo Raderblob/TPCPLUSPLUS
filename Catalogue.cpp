@@ -30,7 +30,7 @@ const int INPUTBUFFER = 100;
 
 //----------------------------------------------------- Méthodes publiques
 
-int Catalogue::findPath()
+int Catalogue::findPath()const
 {
     cin.ignore(INPUTBUFFER,'\n');
 	char buffer1[INPUTBUFFER],buffer2[INPUTBUFFER];
@@ -42,7 +42,7 @@ int Catalogue::findPath()
     replaceCharacter(buffer2,' ','-');
 	return findPath(buffer1, buffer2);
 }
-bool Catalogue::saveCatalogue(ostream& out) {
+bool Catalogue::saveCatalogue(ostream& out) const{
     typeSelection tripType = ALL;
     char buffer[INPUTBUFFER];
     char originSelect[INPUTBUFFER];
@@ -74,7 +74,7 @@ bool Catalogue::saveCatalogue(ostream& out) {
     if(strcmp(buffer,"no")){
         cout<<"Enter town name: "<<endl;
         cin>>buffer;
-        destinationTown = addOrGetTown(buffer);
+        destinationTown = getConstTown(buffer);
     }
 
     cout<<"Save only a certain Interval?(yes/no)"<<endl;
@@ -89,8 +89,9 @@ bool Catalogue::saveCatalogue(ostream& out) {
     stringstream tempOut;
     int res = 0;
 
-    allTowns.resetCursor();
-    for (Town*  i = allTowns.getNextItem(); i!= nullptr ; i=allTowns.getNextItem()) {
+    const Item<Town>* iterator = allTowns.getIterator();
+    for (Town*  i; iterator!= nullptr ; iterator=iterator->nextItem) {
+        i = iterator->thisItem;
         if(!selectFromCertainTown || i->isCalled(originSelect)) {
             res += i->saveTrips(tempOut, tripType,startInterval-intervalCounter,endInterval-intervalCounter,destinationTown);
         }
@@ -180,10 +181,11 @@ void Catalogue::addTrip(istream& input,bool echo,char inputDelimiter)
 	}
 }
 
-void Catalogue::showTrips()
+void Catalogue::showTrips()const
 {
-	allTowns.resetCursor();
-	for (Town* i = allTowns.getNextItem(); i != nullptr; i = allTowns.getNextItem()) {
+    const Item<Town>* iterator = allTowns.getIterator();
+	for (Town* i ; iterator != nullptr; iterator = iterator->nextItem) {
+	    i=iterator->thisItem;
 		i->showTrips();
 	}
 }
@@ -254,14 +256,19 @@ void Catalogue::addComplexeTrip(const char* startingPoint, const char* finishing
 
     delete[] nSt;
 }
-int Catalogue::findPath(const char* a, const char* b)
+int Catalogue::findPath(const char* a, const char* b)const
 {
     int res = 0;
-    allTowns.resetCursor();
-    for (Town* i = allTowns.getNextItem(); i != nullptr; i = allTowns.getNextItem()) {
+    const Item<Town>* iterator = allTowns.getIterator();
+
+
+    for (Town* i; iterator != nullptr; iterator = iterator->nextItem) {
+        i=iterator->thisItem;
         if (i->isCalled(a)) {
-            allTowns.resetCursor();
-            for (Town* o = allTowns.getNextItem(); o != nullptr; o = allTowns.getNextItem()) {
+
+            const Item<Town>* iterator2 = allTowns.getIterator();
+            for (Town* o ; iterator2 != nullptr; iterator2 = iterator2->nextItem) {
+                o=iterator2->thisItem;
                 if (o->isCalled(b)) {
                     LinkedList<const Town>* path = new LinkedList<const Town>(false);
                     LinkedList<const Trip>* trips = new LinkedList<const Trip>(false);
@@ -280,7 +287,7 @@ int Catalogue::findPath(const char* a, const char* b)
     cout << res << endl;
     return res;
 }
-Town* Catalogue::addOrGetTown(const char* townName)
+ Town* Catalogue::addOrGetTown(const char* townName)
 {
     Town* i;
     allTowns.resetCursor();
@@ -296,7 +303,19 @@ Town* Catalogue::addOrGetTown(const char* townName)
     }
     return i;
 }
-void Catalogue::replaceCharacter(char* aString, const char oldChar, const char newChar) {
+const Town* Catalogue::getConstTown(const char* townName) const{
+    const Town* res;
+    const Item<Town>* iterator = allTowns.getIterator();
+    for (;  iterator!= nullptr ; iterator=iterator->nextItem) {
+        res = iterator->thisItem;
+        if(res->isCalled(townName)){
+            return res;
+        }
+    }
+    return nullptr;
+}
+
+void Catalogue::replaceCharacter(char* aString, const char oldChar, const char newChar) const{
     int stringLen = strlen(aString);
     for(int i = 0;i<stringLen;++i){
         if(aString[i]==oldChar){
@@ -304,3 +323,5 @@ void Catalogue::replaceCharacter(char* aString, const char oldChar, const char n
         }
     }
 }
+
+

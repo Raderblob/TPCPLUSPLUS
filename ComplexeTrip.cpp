@@ -36,7 +36,7 @@ void ComplexeTrip::showTrip() const
 
 	cout<<" to:" << destination->getName() << endl;
 }
-bool ComplexeTrip::writeToStream(ostream& out){
+bool ComplexeTrip::writeToStream(ostream& out)const{
     out<<numStopOffs<<DELIMITER<< start->getName()<<DELIMITER<<destination->getName()<<DELIMITER<< means<<DELIMITER;
     for(int i = 0;i<numStopOffs;++i){
         out<<stopOffs[i].t->getName()<<DELIMITER<<stopOffs[i].method<<DELIMITER;

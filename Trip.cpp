@@ -33,7 +33,7 @@ void Trip::showTrip() const
 
 }
 
-bool Trip::writeToStream(ostream& out){
+bool Trip::writeToStream(ostream& out)const{
     out<<"0 " << start->getName()<<" "<<destination->getName()<<" "<< means<<endl;
 	return out.good();
 }

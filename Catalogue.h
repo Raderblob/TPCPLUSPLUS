@@ -30,19 +30,19 @@ class Catalogue
 //----------------------------------------------------------------- PUBLIC
 public:
 //----------------------------------------------------- Méthodes publiques
-	int findPath();
+	int findPath() const;
     // Mode d'emploi :
     //find a path
     // Contrat :
     //
 
-    bool saveCatalogue(std::ostream& out);
+    bool saveCatalogue(std::ostream& out)const;
 
 
 
 	void addTrip(std::istream& input=std::cin,bool echo = true,char inputDelimiter = '\n');
 
-	void showTrips();
+	void showTrips()const;
 
 //------------------------------------------------- Surcharge d'opérateurs
 
@@ -61,10 +61,11 @@ private:
 
 	void addTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport);
 	void addComplexeTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport,char** stops, char** stopMeans, int numStops);
-    int findPath(const char* a, const char* b);
+    int findPath(const char* a, const char* b)const;
 	Town* addOrGetTown(const char* townName);
+    const Town* getConstTown(const char* townName)const ;
 
-	void replaceCharacter(char* string,const char oldChar,const char newChar);
+	void replaceCharacter(char* string,const char oldChar,const char newChar)const;
 //----------------------------------------------------- Attributs protégés
 	LinkedList<Town> allTowns;
 

@@ -32,7 +32,7 @@ class ComplexeTrip :public Trip
 public:
 //----------------------------------------------------- Méthodes publiques
 	void showTrip() const;
-    bool writeToStream(ostream& out);
+    bool writeToStream(ostream& out)const;
 
 
 //------------------------------------------------- Surcharge d'opérateurs

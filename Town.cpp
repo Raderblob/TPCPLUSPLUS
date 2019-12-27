@@ -65,11 +65,14 @@ int Town::findPath(const LinkedList<const Town>& path, const Town& objective, co
 	return res;
 }
 
-int Town::saveTrips(ostream& out,typeSelection tripType,int startIndex, int endIndex,const Town* endTownSelect) {
+int Town::saveTrips(ostream& out,typeSelection tripType,int startIndex, int endIndex,const Town* endTownSelect) const{
     int res = 0;
     int indexChecker = 0;
-    outboundTrips.resetCursor();
-    for (Trip* i = outboundTrips.getNextItem();  i!=nullptr; i=outboundTrips.getNextItem()) {
+
+    const Item<Trip>* iterator = outboundTrips.getIterator();
+
+    for (Trip* i;  iterator!=nullptr; iterator=iterator->nextItem) {
+        i=iterator->thisItem;
         if(tripType==ALL || (tripType == SIMPLE && i->getIsSimple()) || (tripType == COMPLEXE && !i->getIsSimple())){
             if(endTownSelect== nullptr||i->getEnd()==(*endTownSelect)) {
                 if (indexChecker >= startIndex && indexChecker <= endIndex) {
@@ -91,12 +94,13 @@ const char* Town::getName() const
 	return myName;
 }
 
-void Town::showTrips()
+void Town::showTrips()const
 {
-	outboundTrips.resetCursor();
-	for (Trip* i = outboundTrips.getNextItem(); i != nullptr; i = outboundTrips.getNextItem()) {
-		i->showTrip();
-	}
+    const Item<Trip>* iterator = outboundTrips.getIterator();
+    for (Trip* i; iterator != nullptr;iterator = iterator->nextItem){
+        i=iterator->thisItem;
+        i->showTrip();
+    }
 }
 
 void Town::addTrip(Trip* newTrip)
