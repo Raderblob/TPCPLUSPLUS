@@ -102,6 +102,46 @@ bool Catalogue::saveCatalogue(ostream& out) const{
 	return out.good();
 }
 
+bool Catalogue::loadCatalogue(std::istream &in)  {
+    typeSelection tripType = ALL;
+    string buffer;
+    cout<<"Load all types of trips?(yes/no)"<<endl;
+    cin>>buffer;
+    if(buffer == "no"){
+        cout<<"simple or complexe?"<<endl;
+        cin>>buffer;
+        if(buffer == "simple"){
+            tripType = SIMPLE;
+        }else{
+            tripType = COMPLEXE;
+        }
+    }
+    if(in){
+        int numLines;
+        in>> numLines;
+        in.ignore(INPUTBUFFER,'\n');
+        for (int i = 0; i < numLines; ++i) {
+            bool readTrip = true;
+            string lineBuffer;
+            getline(in,lineBuffer);
+            stringstream lineStream;
+            lineStream.str(lineBuffer);
+
+            int numStops;
+            lineStream>>numStops;
+            if((tripType == SIMPLE && numStops !=0)||(tripType==COMPLEXE &&numStops==0)){
+                readTrip=false;
+            }
+
+            lineStream.seekg(0,ios_base::beg);
+            if(readTrip) {
+                addTrip(lineStream, false, ' ');
+            }
+        }
+        return true;
+    }
+    return false;
+}
 
 void Catalogue::addTrip(istream& input,bool echo,char inputDelimiter)
 {
@@ -323,5 +363,7 @@ void Catalogue::replaceCharacter(char* aString, const char oldChar, const char n
         }
     }
 }
+
+
 
 

@@ -38,6 +38,8 @@ public:
 
     bool saveCatalogue(std::ostream& out)const;
 
+    bool loadCatalogue(std::istream& in);
+
 
 
 	void addTrip(std::istream& input=std::cin,bool echo = true,char inputDelimiter = '\n');

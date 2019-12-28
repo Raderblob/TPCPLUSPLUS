@@ -43,28 +43,10 @@ void testLeak() {
             }
         }else if(strcmp(buffer,"load")==0){
             ifstream inputFile("test.txt");
-            if(inputFile){
-
-                //char* line;
-                int numLines;
-                inputFile>> numLines;
-                inputFile.ignore(INPUTBUFFERSIZE,'\n');
-                for (int i = 0; i < numLines; ++i) {
-                    string lineBuffer;
-                    getline(inputFile,lineBuffer);
-                    stringstream lineStream;
-                    lineStream.str(lineBuffer);
-
-                    myCatalogue.addTrip(lineStream,false,' ');
-                }
-
-
-
-
-                inputFile.close();
-            }else{
+            if(!myCatalogue.loadCatalogue(inputFile)){
                 cerr<<"File cannot be loaded"<<endl;
             }
+            inputFile.close();
         }
         for (int i = 0; i < INPUTBUFFERSIZE; ++i) {
             cout << "-";
