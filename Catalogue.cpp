@@ -66,14 +66,16 @@ bool Catalogue::saveCatalogue(ostream& out) const{
     if(strcmp(buffer,"no")){
         selectFromCertainTown = true;
         cout<<"Enter town name:"<<endl;
-        cin>>originSelect;
+        cin>>originSelect;//needs to be changes to getline
+        replaceCharacter(originSelect,' ','-');
     }
 
     cout<<"Save only to certain town?(yes/no)"<<endl;
     cin>>buffer;
     if(strcmp(buffer,"no")){
         cout<<"Enter town name: "<<endl;
-        cin>>buffer;
+        cin>>buffer;//needs to be changes to getline
+        replaceCharacter(buffer,' ','-');
         destinationTown = getConstTown(buffer);
     }
 
@@ -104,6 +106,7 @@ bool Catalogue::saveCatalogue(ostream& out) const{
 
 bool Catalogue::loadCatalogue(std::istream &in)  {
     typeSelection tripType = ALL;
+    int startLimit=0,endLimit=INT32_MAX;
     string buffer;
     cout<<"Load all types of trips?(yes/no)"<<endl;
     cin>>buffer;
@@ -116,26 +119,37 @@ bool Catalogue::loadCatalogue(std::istream &in)  {
             tripType = COMPLEXE;
         }
     }
+
+    cout<<"Load a certain number of trips?(yes/no)"<<endl;
+    cin>>buffer;
+    if(buffer=="yes"){
+        cout<<"Start limit: (starts at 0)"<<endl;
+        cin>>startLimit;
+        cout<<"endLimit: "<<endl;
+        cin>>endLimit;
+    }
     if(in){
         int numLines;
         in>> numLines;
         in.ignore(INPUTBUFFER,'\n');
         for (int i = 0; i < numLines; ++i) {
-            bool readTrip = true;
             string lineBuffer;
-            getline(in,lineBuffer);
-            stringstream lineStream;
-            lineStream.str(lineBuffer);
+            getline(in, lineBuffer);
+            if(i>=startLimit &&i<=endLimit) {
+                bool readTrip = true;
+                stringstream lineStream;
+                lineStream.str(lineBuffer);
 
-            int numStops;
-            lineStream>>numStops;
-            if((tripType == SIMPLE && numStops !=0)||(tripType==COMPLEXE &&numStops==0)){
-                readTrip=false;
-            }
+                int numStops;
+                lineStream >> numStops;
+                if ((tripType == SIMPLE && numStops != 0) || (tripType == COMPLEXE && numStops == 0)) {
+                    readTrip = false;
+                }
 
-            lineStream.seekg(0,ios_base::beg);
-            if(readTrip) {
-                addTrip(lineStream, false, ' ');
+                lineStream.seekg(0, ios_base::beg);
+                if (readTrip) {
+                    addTrip(lineStream, false, ' ');
+                }
             }
         }
         return true;

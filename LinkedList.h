@@ -10,15 +10,13 @@
 #if ! defined ( LINKEDLIST_H )
 #define LINKEDLIST_H
 //--------------------------------------------------- Interfaces utilisées
-
+#include "Iterator.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-template<class T>
-struct Item {
-    struct Item* nextItem;
-    T* thisItem;
-};
+
+
+
 //------------------------------------------------------------------------
 //
 //
@@ -30,6 +28,7 @@ struct Item {
 template<class T>
 class LinkedList
 {
+    friend class Iterator<T>;
 //----------------------------------------------------------------- PUBLIC
 public:
 //----------------------------------------------------- Méthodes publiques
@@ -144,6 +143,8 @@ inline bool LinkedList<T>::contains(const T& val)const
 template<class T>
 inline const Item<T>* LinkedList<T>::getIterator() const
 {
+    Iterator<T>* res = new Iterator<T>(*this);
+    delete res;
 	return root;
 }
 

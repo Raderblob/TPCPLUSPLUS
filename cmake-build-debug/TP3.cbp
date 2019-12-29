@@ -96,6 +96,9 @@
 		<Unit filename="/home/richard/Documents/Cpluplus/TP3/ComplexeTrip.h">
 			<Option target="TP3"/>
 		</Unit>
+		<Unit filename="/home/richard/Documents/Cpluplus/TP3/Iterator.h">
+			<Option target="TP3"/>
+		</Unit>
 		<Unit filename="/home/richard/Documents/Cpluplus/TP3/TP3.cpp">
 			<Option target="TP3"/>
 		</Unit>
