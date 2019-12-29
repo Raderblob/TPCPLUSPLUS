@@ -53,6 +53,7 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
 
 	Catalogue();
+
 	virtual ~Catalogue();
 
 //------------------------------------------------------------------ PRIVE
@@ -67,7 +68,8 @@ private:
 	Town* addOrGetTown(const char* townName);
     const Town* getConstTown(const char* townName)const ;
 
-	void replaceCharacter(char* string,const char oldChar,const char newChar)const;
+	void replaceCharacter(char* aString,char oldChar,char newChar)const;
+    void replaceCharacter(std::string& aString,char oldChar,char newChar)const;
 //----------------------------------------------------- Attributs protégés
 	LinkedList<Town> allTowns;
 

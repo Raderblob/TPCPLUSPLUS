@@ -6,21 +6,47 @@
 
 #IncludeRegexTransform: 
 
+/home/richard/Documents/Cpluplus/TP3/Catalogue.cpp
+iostream
+-
+sstream
+-
+cstring
+-
+Catalogue.h
+/home/richard/Documents/Cpluplus/TP3/Catalogue.h
+Trip.h
+/home/richard/Documents/Cpluplus/TP3/Trip.h
+ComplexeTrip.h
+/home/richard/Documents/Cpluplus/TP3/ComplexeTrip.h
+
+/home/richard/Documents/Cpluplus/TP3/Catalogue.h
+Town.h
+/home/richard/Documents/Cpluplus/TP3/Town.h
+
+/home/richard/Documents/Cpluplus/TP3/ComplexeTrip.h
+Trip.h
+/home/richard/Documents/Cpluplus/TP3/Trip.h
+LinkedList.h
+/home/richard/Documents/Cpluplus/TP3/LinkedList.h
+
 /home/richard/Documents/Cpluplus/TP3/Iterator.h
 
 /home/richard/Documents/Cpluplus/TP3/LinkedList.h
 Iterator.h
 /home/richard/Documents/Cpluplus/TP3/Iterator.h
 
-/home/richard/Documents/Cpluplus/TP3/Town.cpp
+/home/richard/Documents/Cpluplus/TP3/TP3.cpp
 iostream
+-
+fstream
 -
 cstring
 -
-Town.h
-/home/richard/Documents/Cpluplus/TP3/Town.h
-Trip.h
-/home/richard/Documents/Cpluplus/TP3/Trip.h
+sstream
+-
+Catalogue.h
+/home/richard/Documents/Cpluplus/TP3/Catalogue.h
 
 /home/richard/Documents/Cpluplus/TP3/Town.h
 LinkedList.h

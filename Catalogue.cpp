@@ -66,7 +66,9 @@ bool Catalogue::saveCatalogue(ostream& out) const{
     if(strcmp(buffer,"no")){
         selectFromCertainTown = true;
         cout<<"Enter town name:"<<endl;
-        cin>>originSelect;//needs to be changes to getline
+        //cin>>originSelect;//needs to be changes to getline
+        cin.ignore(INPUTBUFFER,'\n');
+        cin.getline(originSelect,INPUTBUFFER);
         replaceCharacter(originSelect,' ','-');
     }
 
@@ -74,7 +76,9 @@ bool Catalogue::saveCatalogue(ostream& out) const{
     cin>>buffer;
     if(strcmp(buffer,"no")){
         cout<<"Enter town name: "<<endl;
-        cin>>buffer;//needs to be changes to getline
+        //cin>>buffer;//needs to be changes to getline
+        cin.ignore(INPUTBUFFER,'\n');
+        cin.getline(buffer,INPUTBUFFER);
         replaceCharacter(buffer,' ','-');
         destinationTown = getConstTown(buffer);
     }
@@ -108,6 +112,8 @@ bool Catalogue::loadCatalogue(std::istream &in)  {
     typeSelection tripType = ALL;
     int startLimit=0,endLimit=INT32_MAX;
     string buffer;
+    string startTown,endTown;
+    bool limitToCertainStartTown = false,limitToCertainEndTown = false;
     cout<<"Load all types of trips?(yes/no)"<<endl;
     cin>>buffer;
     if(buffer == "no"){
@@ -128,6 +134,26 @@ bool Catalogue::loadCatalogue(std::istream &in)  {
         cout<<"endLimit: "<<endl;
         cin>>endLimit;
     }
+
+    cout<<"Load only trips from a certain start town?(yes/no)"<<endl;
+    cin>>buffer;
+    if(buffer=="yes"){
+        limitToCertainStartTown=true;
+        cout<<"Enter town name: "<<endl;
+        cin.ignore(INPUTBUFFER,'\n');
+        getline(cin,startTown);
+        replaceCharacter(startTown,' ','-');
+    }
+
+    cout<<"Load only trips going to a certain town?(yes/no)"<<endl;
+    cin>>buffer;
+    if(buffer=="yes"){
+        limitToCertainEndTown= true;
+        cout<<"Enter town name: "<<endl;
+        cin.ignore(INPUTBUFFER,'\n');
+        getline(cin,endTown);
+        replaceCharacter(endTown,' ','-');
+    }
     if(in){
         int numLines;
         in>> numLines;
@@ -141,9 +167,15 @@ bool Catalogue::loadCatalogue(std::istream &in)  {
                 lineStream.str(lineBuffer);
 
                 int numStops;
+                string startT,endT;
+
                 lineStream >> numStops;
+                lineStream>>startT;
+                lineStream>>endT;
                 if ((tripType == SIMPLE && numStops != 0) || (tripType == COMPLEXE && numStops == 0)) {
                     readTrip = false;
+                }else if((limitToCertainStartTown && startT!=startTown)||(limitToCertainEndTown&&endT!=endTown)){
+                    readTrip= false;
                 }
 
                 lineStream.seekg(0, ios_base::beg);
@@ -367,10 +399,19 @@ const Town* Catalogue::getConstTown(const char* townName) const{
     return nullptr;
 }
 
-void Catalogue::replaceCharacter(char* aString, const char oldChar, const char newChar) const{
+void Catalogue::replaceCharacter(char* aString, char oldChar, char newChar) const{
     int stringLen = strlen(aString);
     for(int i = 0;i<stringLen;++i){
         if(aString[i]==oldChar){
+            aString[i] = newChar;
+        }
+    }
+}
+
+void Catalogue::replaceCharacter(std::string& aString, char oldChar, char newChar) const {
+    int stringLen = aString.length();
+    for (int i = 0; i < stringLen; ++i) {
+        if (aString[i] == oldChar){
             aString[i] = newChar;
         }
     }
