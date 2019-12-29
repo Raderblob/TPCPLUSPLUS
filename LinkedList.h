@@ -38,7 +38,7 @@ public:
 	T* resetCursor();
 	bool contains(const T& val)const;
 
-	const Item<T>* getIterator()const;
+	Iterator<T>* getIterator()const;
 
 //------------------------------------------------- Surcharge d'opérateurs
 
@@ -141,11 +141,10 @@ inline bool LinkedList<T>::contains(const T& val)const
 }
 
 template<class T>
-inline const Item<T>* LinkedList<T>::getIterator() const
+inline Iterator<T>* LinkedList<T>::getIterator() const
 {
     Iterator<T>* res = new Iterator<T>(*this);
-    delete res;
-	return root;
+	return res;
 }
 
 

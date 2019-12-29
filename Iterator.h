@@ -32,7 +32,8 @@ class Iterator {
 //----------------------------------------------------------------- PUBLIC
 public:
 //----------------------------------------------------- Méthodes publiques
-    T& getContents();
+    T* getContents()const;
+    bool atEnd()const;
 //------------------------------------------------- Surcharge d'opérateurs
     Iterator<T>& operator ++();
 
@@ -71,8 +72,13 @@ Iterator<T>& Iterator<T>::operator++() {
 }
 
 template<class T>
-T& Iterator<T>::getContents() {
-    return *(myData->thisItem);
+T* Iterator<T>::getContents()const {
+    return (myData->thisItem);
+}
+
+template<class T>
+bool Iterator<T>::atEnd() const {
+    return myData== nullptr;
 }
 
 

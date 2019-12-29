@@ -27,13 +27,9 @@ using namespace std;
 int Town::findPath(const LinkedList<const Town>& path, const Town& objective, const LinkedList<const Trip>& trips) const
 {
 	int res=0;
-	const Item<Trip>* iterator = outboundTrips.getIterator();
-	if (iterator == nullptr) {
-		return res;
-	}
-
-	for (Trip* i = iterator->thisItem; iterator != nullptr;iterator = iterator->nextItem) {
-		i = iterator->thisItem;
+    Iterator<Trip> myIterator(outboundTrips);
+	for (Trip* i; !myIterator.atEnd();++myIterator) {
+		i = myIterator.getContents();
 		if (!path.contains(i->getEnd())) {
 			LinkedList<const Trip>* newTrips = new LinkedList<const Trip>(trips);
 			LinkedList<const Town>* newPath = new LinkedList<const Town>(path);
@@ -69,10 +65,9 @@ int Town::saveTrips(ostream& out,typeSelection tripType,int startIndex, int endI
     int res = 0;
     int indexChecker = 0;
 
-    const Item<Trip>* iterator = outboundTrips.getIterator();
-
-    for (Trip* i;  iterator!=nullptr; iterator=iterator->nextItem) {
-        i=iterator->thisItem;
+    Iterator<Trip> myIterator(outboundTrips);
+    for (Trip* i;  !myIterator.atEnd(); ++myIterator) {
+        i=myIterator.getContents();
         if(tripType==ALL || (tripType == SIMPLE && i->getIsSimple()) || (tripType == COMPLEXE && !i->getIsSimple())){
             if(endTownSelect== nullptr||i->getEnd()==(*endTownSelect)) {
                 if (indexChecker >= startIndex && indexChecker <= endIndex) {
@@ -96,9 +91,9 @@ const char* Town::getName() const
 
 void Town::showTrips()const
 {
-    const Item<Trip>* iterator = outboundTrips.getIterator();
-    for (Trip* i; iterator != nullptr;iterator = iterator->nextItem){
-        i=iterator->thisItem;
+    Iterator<Trip> myIterator(outboundTrips);
+    for (Trip* i; !myIterator.atEnd();++myIterator){
+        i=myIterator.getContents();
         i->showTrip();
     }
 }

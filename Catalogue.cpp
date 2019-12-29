@@ -91,9 +91,9 @@ bool Catalogue::saveCatalogue(ostream& out) const{
     stringstream tempOut;
     int res = 0;
 
-    const Item<Town>* iterator = allTowns.getIterator();
-    for (Town*  i; iterator!= nullptr ; iterator=iterator->nextItem) {
-        i = iterator->thisItem;
+    Iterator<Town> myIterator(allTowns);
+    for (Town*  i; !myIterator.atEnd(); ++myIterator) {
+        i = myIterator.getContents();
         if(!selectFromCertainTown || i->isCalled(originSelect)) {
             res += i->saveTrips(tempOut, tripType,startInterval-intervalCounter,endInterval-intervalCounter,destinationTown);
         }
@@ -237,9 +237,9 @@ void Catalogue::addTrip(istream& input,bool echo,char inputDelimiter)
 
 void Catalogue::showTrips()const
 {
-    const Item<Town>* iterator = allTowns.getIterator();
-	for (Town* i ; iterator != nullptr; iterator = iterator->nextItem) {
-	    i=iterator->thisItem;
+    Iterator<Town> myIterator(allTowns);
+	for (Town* i ; !myIterator.atEnd(); ++myIterator) {
+	    i=myIterator.getContents();
 		i->showTrips();
 	}
 }
@@ -313,16 +313,15 @@ void Catalogue::addComplexeTrip(const char* startingPoint, const char* finishing
 int Catalogue::findPath(const char* a, const char* b)const
 {
     int res = 0;
-    const Item<Town>* iterator = allTowns.getIterator();
+    Iterator<Town> myIterator(allTowns);
 
-
-    for (Town* i; iterator != nullptr; iterator = iterator->nextItem) {
-        i=iterator->thisItem;
+    for (Town* i; !myIterator.atEnd();++myIterator) {
+        i=myIterator.getContents();
         if (i->isCalled(a)) {
 
-            const Item<Town>* iterator2 = allTowns.getIterator();
-            for (Town* o ; iterator2 != nullptr; iterator2 = iterator2->nextItem) {
-                o=iterator2->thisItem;
+            Iterator<Town> myIterator2(allTowns);
+            for (Town* o ; !myIterator2.atEnd(); ++myIterator2) {
+                o=myIterator2.getContents();
                 if (o->isCalled(b)) {
                     LinkedList<const Town>* path = new LinkedList<const Town>(false);
                     LinkedList<const Trip>* trips = new LinkedList<const Trip>(false);
@@ -359,9 +358,8 @@ int Catalogue::findPath(const char* a, const char* b)const
 }
 const Town* Catalogue::getConstTown(const char* townName) const{
     const Town* res;
-    const Item<Town>* iterator = allTowns.getIterator();
-    for (;  iterator!= nullptr ; iterator=iterator->nextItem) {
-        res = iterator->thisItem;
+    for (Iterator<Town> myIterator(allTowns);  !myIterator.atEnd(); ++myIterator) {
+        res = myIterator.getContents();
         if(res->isCalled(townName)){
             return res;
         }
