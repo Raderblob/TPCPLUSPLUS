@@ -20,8 +20,6 @@ const char DELIMITER = ' ';
 //------------------------------------------------------------------ Types
 
 
-
-
 class Trip
 {
 //----------------------------------------------------------------- PUBLIC
@@ -29,9 +27,9 @@ public:
 //----------------------------------------------------- Méthodes publiques
 	virtual void showTrip() const;
 
-	virtual bool writeToStream(ostream& out)const;
+	virtual bool writeToStream(ostream& out) const;
 
-	const Town& getStart()const;
+	const Town& getStart() const;
 	const Town& getEnd() const;
 	bool getIsSimple() const;
 //------------------------------------------------- Surcharge d'opérateurs
@@ -39,7 +37,7 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-	Trip(Town* begin,Town* end,const char* how);
+	Trip(Town* begin, Town* end, const char* how);
 
 	virtual ~Trip();
 

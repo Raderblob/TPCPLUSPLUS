@@ -30,7 +30,7 @@ const int INPUTBUFFER = 100;
 
 //----------------------------------------------------- Méthodes publiques
 
-int Catalogue::findPath()const
+int Catalogue::findPath() const
 {
     cin.ignore(INPUTBUFFER,'\n');
 	char buffer1[INPUTBUFFER],buffer2[INPUTBUFFER];
@@ -42,7 +42,9 @@ int Catalogue::findPath()const
     replaceCharacter(buffer2,' ','-');
 	return findPath(buffer1, buffer2);
 }
-bool Catalogue::saveCatalogue(ostream& out) const{
+
+bool Catalogue::saveCatalogue(ostream& out) const
+{
     typeSelection tripType = ALL;
     char buffer[INPUTBUFFER];
     char originSelect[INPUTBUFFER];
@@ -52,10 +54,12 @@ bool Catalogue::saveCatalogue(ostream& out) const{
 
     cout<<"save all types of trips?(yes/no)"<<endl;
     cin>>buffer;
-    if(strcmp(buffer,"yes")){
+    if(strcmp(buffer,"yes"))
+    {
         cout<<"simple or complexe?"<<endl;
         cin>>buffer;
-        if(strcmp(buffer,"simple")==0){
+        if(strcmp(buffer,"simple")==0)
+        {
             tripType = SIMPLE;
         }else{
             tripType = COMPLEXE;
@@ -63,7 +67,8 @@ bool Catalogue::saveCatalogue(ostream& out) const{
     }
     cout<<"Save only from certain town?(yes/no)"<<endl;
     cin>>buffer;
-    if(strcmp(buffer,"no")){
+    if(strcmp(buffer,"no"))
+    {
         selectFromCertainTown = true;
         cout<<"Enter town name:"<<endl;
         //cin>>originSelect;//needs to be changes to getline
@@ -74,7 +79,8 @@ bool Catalogue::saveCatalogue(ostream& out) const{
 
     cout<<"Save only to certain town?(yes/no)"<<endl;
     cin>>buffer;
-    if(strcmp(buffer,"no")){
+    if(strcmp(buffer,"no"))
+    {
         cout<<"Enter town name: "<<endl;
         //cin>>buffer;//needs to be changes to getline
         cin.ignore(INPUTBUFFER,'\n');
@@ -85,7 +91,8 @@ bool Catalogue::saveCatalogue(ostream& out) const{
 
     cout<<"Save only a certain Interval?(yes/no)"<<endl;
     cin>>buffer;
-    if(strcmp(buffer,"no")){
+    if(strcmp(buffer,"no"))
+    {
         cout<<"Start interval(Starts at 0):"<<endl;
         cin>>startInterval;
         cout<<"end interval:"<<endl;
@@ -96,10 +103,13 @@ bool Catalogue::saveCatalogue(ostream& out) const{
     int res = 0;
 
     Iterator<Town> myIterator(allTowns);
-    for (Town*  i; !myIterator.atEnd(); ++myIterator) {
+    for (Town*  i; !myIterator.atEnd(); ++myIterator)
+    {
         i = myIterator.getContents();
-        if(!selectFromCertainTown || i->isCalled(originSelect)) {
-            res += i->saveTrips(tempOut, tripType,startInterval-intervalCounter,endInterval-intervalCounter,destinationTown);
+        if(!selectFromCertainTown || i->isCalled(originSelect))
+        {
+            res += i->saveTrips(tempOut, tripType,startInterval-intervalCounter,
+                    endInterval-intervalCounter, destinationTown);
         }
         intervalCounter+=i->getNumTrips();
     }
@@ -108,7 +118,8 @@ bool Catalogue::saveCatalogue(ostream& out) const{
 	return out.good();
 }
 
-bool Catalogue::loadCatalogue(std::istream &in)  {
+bool Catalogue::loadCatalogue(std::istream &in)
+{
     typeSelection tripType = ALL;
     int startLimit=0,endLimit=INT32_MAX;
     string buffer;
@@ -116,10 +127,13 @@ bool Catalogue::loadCatalogue(std::istream &in)  {
     bool limitToCertainStartTown = false,limitToCertainEndTown = false;
     cout<<"Load all types of trips?(yes/no)"<<endl;
     cin>>buffer;
-    if(buffer == "no"){
+
+    if(buffer == "no")
+    {
         cout<<"simple or complexe?"<<endl;
         cin>>buffer;
-        if(buffer == "simple"){
+        if(buffer == "simple")
+        {
             tripType = SIMPLE;
         }else{
             tripType = COMPLEXE;
@@ -128,7 +142,9 @@ bool Catalogue::loadCatalogue(std::istream &in)  {
 
     cout<<"Load a certain number of trips?(yes/no)"<<endl;
     cin>>buffer;
-    if(buffer=="yes"){
+
+    if(buffer=="yes")
+    {
         cout<<"Start limit: (starts at 0)"<<endl;
         cin>>startLimit;
         cout<<"endLimit: "<<endl;
@@ -137,7 +153,9 @@ bool Catalogue::loadCatalogue(std::istream &in)  {
 
     cout<<"Load only trips from a certain start town?(yes/no)"<<endl;
     cin>>buffer;
-    if(buffer=="yes"){
+
+    if(buffer=="yes")
+    {
         limitToCertainStartTown=true;
         cout<<"Enter town name: "<<endl;
         cin.ignore(INPUTBUFFER,'\n');
@@ -147,21 +165,27 @@ bool Catalogue::loadCatalogue(std::istream &in)  {
 
     cout<<"Load only trips going to a certain town?(yes/no)"<<endl;
     cin>>buffer;
-    if(buffer=="yes"){
+
+    if(buffer=="yes")
+    {
         limitToCertainEndTown= true;
         cout<<"Enter town name: "<<endl;
         cin.ignore(INPUTBUFFER,'\n');
         getline(cin,endTown);
         replaceCharacter(endTown,' ','-');
     }
-    if(in){
+
+    if(in)
+    {
         int numLines;
         in>> numLines;
         in.ignore(INPUTBUFFER,'\n');
-        for (int i = 0; i < numLines; ++i) {
+        for (int i = 0; i < numLines; ++i)
+        {
             string lineBuffer;
             getline(in, lineBuffer);
-            if(i>=startLimit &&i<=endLimit) {
+            if(i>=startLimit &&i<=endLimit)
+            {
                 bool readTrip = true;
                 stringstream lineStream;
                 lineStream.str(lineBuffer);
@@ -172,14 +196,18 @@ bool Catalogue::loadCatalogue(std::istream &in)  {
                 lineStream >> numStops;
                 lineStream>>startT;
                 lineStream>>endT;
-                if ((tripType == SIMPLE && numStops != 0) || (tripType == COMPLEXE && numStops == 0)) {
+                if ((tripType == SIMPLE && numStops != 0) || (tripType == COMPLEXE && numStops == 0))
+                {
                     readTrip = false;
-                }else if((limitToCertainStartTown && startT!=startTown)||(limitToCertainEndTown&&endT!=endTown)){
+                }
+                else if((limitToCertainStartTown && startT!=startTown)||(limitToCertainEndTown&&endT!=endTown))
+                {
                     readTrip= false;
                 }
 
                 lineStream.seekg(0, ios_base::beg);
-                if (readTrip) {
+                if (readTrip)
+                {
                     addTrip(lineStream, false, ' ');
                 }
             }
@@ -189,25 +217,30 @@ bool Catalogue::loadCatalogue(std::istream &in)  {
     return false;
 }
 
-void Catalogue::addTrip(istream& input,bool echo,char inputDelimiter)
+void Catalogue::addTrip(istream& input, bool echo, char inputDelimiter)
 {
 
 	int numStops;
 	char buffer[INPUTBUFFER];
 	char* startingPoint,*finishingPoint,*meansOfTransport;
 
-    if(echo) {
+    if(echo)
+    {
         cout << "Number of stopoff points\n";
     }
+
     do {
-        if(input.fail()){
+        if(input.fail())
+        {
             input.clear();
             input.ignore(INPUTBUFFER,'\n');
             cout<<"input wrong try again"<<endl;
         }
         input >> numStops;
     }while(input.fail());
-    if(echo) {
+
+    if(echo)
+    {
         cout << "Enter starting point\n";
     }
     input.ignore(INPUTBUFFER,inputDelimiter);
@@ -217,7 +250,8 @@ void Catalogue::addTrip(istream& input,bool echo,char inputDelimiter)
 	startingPoint = new char[strlen(buffer) + 1];
 	strcpy(startingPoint, buffer);
 
-    if(echo) {
+    if(echo)
+    {
         cout << "Enter End point\n";
     }
     input.getline(buffer,INPUTBUFFER,inputDelimiter);
@@ -226,7 +260,8 @@ void Catalogue::addTrip(istream& input,bool echo,char inputDelimiter)
 	finishingPoint = new char[strlen(buffer) + 1];
 	strcpy(finishingPoint, buffer);
 
-    if(echo) {
+    if(echo)
+    {
         cout << "Enter means of transport\n";
     }
     input.getline(buffer,INPUTBUFFER,inputDelimiter);
@@ -236,15 +271,18 @@ void Catalogue::addTrip(istream& input,bool echo,char inputDelimiter)
 	strcpy(meansOfTransport, buffer);
 
 
-	if (numStops == 0) {
+	if (numStops == 0)
+	{
 		addTrip(startingPoint, finishingPoint, meansOfTransport);
 	}
 	else {
 		char** stops, ** stopMeans;
 		stops = new char* [numStops];
 		stopMeans = new char* [numStops];
-		for (int i = 0; i < numStops; ++i) {
-            if(echo) {
+		for (int i = 0; i < numStops; ++i)
+		{
+            if(echo)
+            {
                 cout << i << " st stop\n";
             }
             input.getline(buffer,INPUTBUFFER,inputDelimiter);
@@ -253,7 +291,8 @@ void Catalogue::addTrip(istream& input,bool echo,char inputDelimiter)
 			stops[i] = new char[strlen(buffer) + 1];
 			strcpy(stops[i], buffer);
 
-            if(echo) {
+            if(echo)
+            {
                 cout << i+1 << " st means\n";
             }
             input.getline(buffer,INPUTBUFFER,inputDelimiter);
@@ -267,10 +306,11 @@ void Catalogue::addTrip(istream& input,bool echo,char inputDelimiter)
 	}
 }
 
-void Catalogue::showTrips()const
+void Catalogue::showTrips() const
 {
     Iterator<Town> myIterator(allTowns);
-	for (Town* i ; !myIterator.atEnd(); ++myIterator) {
+	for (Town* i ; !myIterator.atEnd(); ++myIterator)
+	{
 	    i=myIterator.getContents();
 		i->showTrips();
 	}
@@ -311,13 +351,15 @@ void Catalogue::addTrip(const char* startingPoint, const char* finishingPoint, c
     delete[] meansOfTransport;
 }
 
-void Catalogue::addComplexeTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport, char** stops, char** stopMeans, int numStops)
+void Catalogue::addComplexeTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport,
+        char** stops, char** stopMeans, int numStops)
 {
     Town* i, * o;
     Town** nSt = new Town*[numStops];
 
 
-    for (int cnter = 0; cnter < numStops; ++cnter) {
+    for (int cnter = 0; cnter < numStops; ++cnter)
+    {
         nSt[cnter] = addOrGetTown(stops[cnter]);
     }
 
@@ -333,7 +375,8 @@ void Catalogue::addComplexeTrip(const char* startingPoint, const char* finishing
     delete[] meansOfTransport;
 
 
-    for (int j = 0; j < numStops; ++j) {
+    for (int j = 0; j < numStops; ++j)
+    {
         delete[] stops[j];
         delete[] stopMeans[j];
     }
@@ -342,19 +385,24 @@ void Catalogue::addComplexeTrip(const char* startingPoint, const char* finishing
 
     delete[] nSt;
 }
-int Catalogue::findPath(const char* a, const char* b)const
+
+int Catalogue::findPath(const char* a, const char* b) const
 {
     int res = 0;
     Iterator<Town> myIterator(allTowns);
 
-    for (Town* i; !myIterator.atEnd();++myIterator) {
+    for (Town* i; !myIterator.atEnd();++myIterator)
+    {
         i=myIterator.getContents();
-        if (i->isCalled(a)) {
+        if (i->isCalled(a))
+        {
 
             Iterator<Town> myIterator2(allTowns);
-            for (Town* o ; !myIterator2.atEnd(); ++myIterator2) {
+            for (Town* o ; !myIterator2.atEnd(); ++myIterator2)
+            {
                 o=myIterator2.getContents();
-                if (o->isCalled(b)) {
+                if (o->isCalled(b))
+                {
                     LinkedList<const Town>* path = new LinkedList<const Town>(false);
                     LinkedList<const Trip>* trips = new LinkedList<const Trip>(false);
                     path->addItem(i);
@@ -364,7 +412,6 @@ int Catalogue::findPath(const char* a, const char* b)const
                 }
             }
 
-
             break;
         }
     }
@@ -372,51 +419,63 @@ int Catalogue::findPath(const char* a, const char* b)const
     cout << res << endl;
     return res;
 }
+
  Town* Catalogue::addOrGetTown(const char* townName)
 {
     Town* i;
     allTowns.resetCursor();
-    for (i = allTowns.getNextItem(); i != nullptr; i = allTowns.getNextItem()) {
-        if (i->isCalled(townName)) {
+    for (i = allTowns.getNextItem(); i != nullptr; i = allTowns.getNextItem())
+    {
+        if (i->isCalled(townName))
+        {
             break;
         }
     }
-    if (i == nullptr) {
+
+    if (i == nullptr)
+    {
         Town* newTown = new Town(townName);
         allTowns.addItem(newTown);
         i = newTown;
     }
     return i;
 }
-const Town* Catalogue::getConstTown(const char* townName) const{
+
+const Town* Catalogue::getConstTown(const char* townName) const
+{
     const Town* res;
-    for (Iterator<Town> myIterator(allTowns);  !myIterator.atEnd(); ++myIterator) {
+    for (Iterator<Town> myIterator(allTowns);  !myIterator.atEnd(); ++myIterator)
+    {
         res = myIterator.getContents();
-        if(res->isCalled(townName)){
+        if(res->isCalled(townName))
+        {
             return res;
         }
     }
     return nullptr;
 }
 
-void Catalogue::replaceCharacter(char* aString, char oldChar, char newChar) const{
+void Catalogue::replaceCharacter(char* aString, char oldChar, char newChar) const
+{
     int stringLen = strlen(aString);
-    for(int i = 0;i<stringLen;++i){
-        if(aString[i]==oldChar){
+    for(int i = 0;i<stringLen;++i)
+    {
+        if(aString[i]==oldChar)
+        {
             aString[i] = newChar;
         }
     }
 }
 
-void Catalogue::replaceCharacter(std::string& aString, char oldChar, char newChar) const {
+void Catalogue::replaceCharacter(std::string& aString, char oldChar, char newChar) const
+{
     int stringLen = aString.length();
-    for (int i = 0; i < stringLen; ++i) {
-        if (aString[i] == oldChar){
+    for (int i = 0; i < stringLen; ++i)
+    {
+        if (aString[i] == oldChar)
+        {
             aString[i] = newChar;
         }
     }
 }
-
-
-
 

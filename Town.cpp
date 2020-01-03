@@ -28,21 +28,26 @@ int Town::findPath(const LinkedList<const Town>& path, const Town& objective, co
 {
 	int res=0;
     Iterator<Trip> myIterator(outboundTrips);
-	for (Trip* i; !myIterator.atEnd();++myIterator) {
+	for (Trip* i; !myIterator.atEnd();++myIterator)
+	{
 		i = myIterator.getContents();
-		if (!path.contains(i->getEnd())) {
+		if (!path.contains(i->getEnd()))
+		{
 			LinkedList<const Trip>* newTrips = new LinkedList<const Trip>(trips);
 			LinkedList<const Town>* newPath = new LinkedList<const Town>(path);
 			newTrips->addItem(i);
 			newPath->addItem(&(i->getEnd()));
-			if (i->getEnd() == objective) {
+			if (i->getEnd() == objective)
+			{
 				newPath->resetCursor();
-				for (const Town* o = newPath->getNextItem(); o != nullptr; o = newPath->getNextItem()) {
+				for (const Town* o = newPath->getNextItem(); o != nullptr; o = newPath->getNextItem())
+				{
 					cout << o->getName() << " ";
 				}
 				cout << endl;
 				newTrips->resetCursor();
-				for (const Trip* o = newTrips->getNextItem(); o != nullptr; o = newTrips->getNextItem()) {
+				for (const Trip* o = newTrips->getNextItem(); o != nullptr; o = newTrips->getNextItem())
+				{
 					o->showTrip();
 				}
 				cout << endl;
@@ -61,23 +66,29 @@ int Town::findPath(const LinkedList<const Town>& path, const Town& objective, co
 	return res;
 }
 
-int Town::saveTrips(ostream& out,typeSelection tripType,int startIndex, int endIndex,const Town* endTownSelect) const{
+int Town::saveTrips(ostream& out, typeSelection tripType, int startIndex, int endIndex, const Town* endTownSelect) const
+{
     int res = 0;
     int indexChecker = 0;
 
     Iterator<Trip> myIterator(outboundTrips);
-    for (Trip* i;  !myIterator.atEnd(); ++myIterator) {
+    for (Trip* i;  !myIterator.atEnd(); ++myIterator)
+    {
         i=myIterator.getContents();
-        if(tripType==ALL || (tripType == SIMPLE && i->getIsSimple()) || (tripType == COMPLEXE && !i->getIsSimple())){
-            if(endTownSelect== nullptr||i->getEnd()==(*endTownSelect)) {
-                if (indexChecker >= startIndex && indexChecker <= endIndex) {
+        if(tripType==ALL || (tripType == SIMPLE && i->getIsSimple()) || (tripType == COMPLEXE && !i->getIsSimple()))
+        {
+            if(endTownSelect== nullptr||i->getEnd()==(*endTownSelect))
+            {
+                if (indexChecker >= startIndex && indexChecker <= endIndex)
+                {
                     i->writeToStream(out);
                     res++;
                 }
                 indexChecker++;
             }
         }
-        if(indexChecker>endIndex){
+        if(indexChecker>endIndex)
+        {
             return res;
         }
     }
@@ -89,10 +100,11 @@ const char* Town::getName() const
 	return myName;
 }
 
-void Town::showTrips()const
+void Town::showTrips() const
 {
     Iterator<Trip> myIterator(outboundTrips);
-    for (Trip* i; !myIterator.atEnd();++myIterator){
+    for (Trip* i; !myIterator.atEnd();++myIterator)
+    {
         i=myIterator.getContents();
         i->showTrip();
     }
@@ -104,22 +116,26 @@ void Town::addTrip(Trip* newTrip)
 	++numTrips;
 }
 
-bool Town::isCalled(const char* tName)const {
+bool Town::isCalled(const char* tName) const
+{
 	return !strcmp(myName, tName);
 }
-int Town::getNumTrips() const {
+
+int Town::getNumTrips() const
+{
     return numTrips;
 }
 
 //------------------------------------------------- Surcharge d'opérateurs
-bool Town::operator==(const Town& oTown)const
+bool Town::operator==(const Town& oTown) const
 {
     return myId==oTown.myId;
 }
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Town::Town(const char* tName) {
+Town::Town(const char* tName)
+{
 	static int idCounter = 0;
 	myName = new char[strlen(tName)+1];
 	strcpy(myName, tName);
@@ -128,7 +144,8 @@ Town::Town(const char* tName) {
 }
 
 
-Town::~Town() {
+Town::~Town()
+{
 	delete[] myName;
 }
 

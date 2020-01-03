@@ -16,14 +16,11 @@
 //------------------------------------------------------------------ Types
 
 
-
 //------------------------------------------------------------------------
 //
 //
 //
 //------------------------------------------------------------------------
-
-
 
 template<class T>
 class LinkedList
@@ -36,9 +33,9 @@ public:
 	void removeItem(const T& selectItem);
 	T* getNextItem() ;
 	T* resetCursor();
-	bool contains(const T& val)const;
+	bool contains(const T& val) const;
 
-	Iterator<T>* getIterator()const;
+	Iterator<T>* getIterator() const;
 
 //------------------------------------------------- Surcharge d'opérateurs
 
@@ -60,7 +57,8 @@ private:
 };
 //-------------------------------- Autres définitions dépendantes de <TrajetCompose>
 template<class T>
-inline void LinkedList<T>::addItem(T* newItem) {
+inline void LinkedList<T>::addItem(T* newItem)
+{
 	Item<T>* newCell = new Item<T>;
 	newCell->nextItem = nullptr;
 	newCell->thisItem = newItem;
@@ -68,22 +66,25 @@ inline void LinkedList<T>::addItem(T* newItem) {
 
 	Item<T>* currSelected = root;
 	
-	if (currSelected == nullptr) {
+	if (currSelected == nullptr)
+	{
 		root = newCell;
 		return;
 	}
 
-	while (currSelected->nextItem != nullptr) {
+	while (currSelected->nextItem != nullptr)
+	{
 		currSelected = currSelected->nextItem;
 	}
 	currSelected->nextItem = newCell;
 
-
 }
 
 template<class T>
-inline void LinkedList<T>::removeItem(const T& selectItem) {
-	if (*(root->thisItem) == selectItem) {
+inline void LinkedList<T>::removeItem(const T& selectItem)
+{
+	if (*(root->thisItem) == selectItem)
+	{
 		Item<T>* temp = root;
 		root = root->nextItem;
 		delete temp->thisItem;
@@ -93,8 +94,10 @@ inline void LinkedList<T>::removeItem(const T& selectItem) {
 
 	Item<T>* currSelected = root;
 
-	while (currSelected->nextItem != nullptr) {
-		if (*(currSelected->nextItem->thisItem) == selectItem) {
+	while (currSelected->nextItem != nullptr)
+	{
+		if (*(currSelected->nextItem->thisItem) == selectItem)
+		{
 			Item<T>* temp = currSelected->nextItem;
 			currSelected->nextItem = temp->nextItem;
 			delete temp->thisItem;
@@ -105,14 +108,15 @@ inline void LinkedList<T>::removeItem(const T& selectItem) {
 		currSelected = currSelected->nextItem;
 		
 	}
-
 }
 
 template<class T>
-inline T* LinkedList<T>::getNextItem() {
+inline T* LinkedList<T>::getNextItem()
+{
 	T* res = nullptr;
 	
-	if (cursor != nullptr) {
+	if (cursor != nullptr)
+	{
 		res = cursor->thisItem;
 		cursor = cursor->nextItem;
 	}
@@ -120,7 +124,8 @@ inline T* LinkedList<T>::getNextItem() {
 }
 
 template<class T>
-inline T* LinkedList<T>::resetCursor() {
+inline T* LinkedList<T>::resetCursor()
+{
 	cursor = root;
 	if(cursor != nullptr)
 		return cursor->thisItem;
@@ -128,12 +133,14 @@ inline T* LinkedList<T>::resetCursor() {
 }
 
 template<class T>
-inline bool LinkedList<T>::contains(const T& val)const
+inline bool LinkedList<T>::contains(const T& val) const
 {
 
 
-	for (Item<T>* i = root; i != nullptr; i = i->nextItem) {
-		if (*(i->thisItem) == val) {
+	for (Item<T>* i = root; i != nullptr; i = i->nextItem)
+	{
+		if (*(i->thisItem) == val)
+		{
 			return true;
 		}
 	}
@@ -149,7 +156,8 @@ inline Iterator<T>* LinkedList<T>::getIterator() const
 
 
 template<class T>
-inline LinkedList<T>::LinkedList(bool clearOnDeletion) {
+inline LinkedList<T>::LinkedList(bool clearOnDeletion)
+{
 	root = nullptr;
 	numItems = 0;
 	cursor = nullptr;
@@ -165,7 +173,8 @@ inline LinkedList<T>::LinkedList(const LinkedList<T>& oList)
 	deleteContentsOnDeletion = false;
 
 	Item<T>* i;
-	for (i = oList.root; i != nullptr; i = i->nextItem) {
+	for (i = oList.root; i != nullptr; i = i->nextItem)
+	{
 		this->addItem(i->thisItem);
 	}
 
@@ -179,9 +188,11 @@ inline LinkedList<T>::~LinkedList()
 		Item<T>* first = root;
 		Item<T>* next;
 
-		while (first != nullptr) {
+		while (first != nullptr)
+		{
 			next = first->nextItem;
-			if (deleteContentsOnDeletion) {
+			if (deleteContentsOnDeletion)
+			{
 				delete first->thisItem;
 			}
 			delete first;

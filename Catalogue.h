@@ -36,15 +36,13 @@ public:
     // Contrat :
     //
 
-    bool saveCatalogue(std::ostream& out)const;
+    bool saveCatalogue(std::ostream& out) const;
 
     bool loadCatalogue(std::istream& in);
 
+	void addTrip(std::istream& input=std::cin, bool echo = true, char inputDelimiter = '\n');
 
-
-	void addTrip(std::istream& input=std::cin,bool echo = true,char inputDelimiter = '\n');
-
-	void showTrips()const;
+	void showTrips() const;
 
 //------------------------------------------------- Surcharge d'opérateurs
 
@@ -63,13 +61,19 @@ private:
 //----------------------------------------------------- Méthodes protégées
 
 	void addTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport);
-	void addComplexeTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport,char** stops, char** stopMeans, int numStops);
-    int findPath(const char* a, const char* b)const;
-	Town* addOrGetTown(const char* townName);
-    const Town* getConstTown(const char* townName)const ;
 
-	void replaceCharacter(char* aString,char oldChar,char newChar)const;
-    void replaceCharacter(std::string& aString,char oldChar,char newChar)const;
+	void addComplexeTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport,
+	        char** stops, char** stopMeans, int numStops);
+
+    int findPath(const char* a, const char* b) const;
+
+	Town* addOrGetTown(const char* townName);
+
+    const Town* getConstTown(const char* townName) const;
+
+	void replaceCharacter(char* aString, char oldChar, char newChar) const;
+
+    void replaceCharacter(std::string& aString, char oldChar, char newChar) const;
 //----------------------------------------------------- Attributs protégés
 	LinkedList<Town> allTowns;
 

@@ -22,6 +22,7 @@ struct Item {
     struct Item* nextItem;
     T* thisItem;
 };
+
 //------------------------------------------------------------------------
 // Rôle de la classe <Iterator>
 //
@@ -32,8 +33,8 @@ class Iterator {
 //----------------------------------------------------------------- PUBLIC
 public:
 //----------------------------------------------------- Méthodes publiques
-    T* getContents()const;
-    bool atEnd()const;
+    T* getContents() const;
+    bool atEnd() const;
 //------------------------------------------------- Surcharge d'opérateurs
     Iterator<T>& operator ++();
 
@@ -54,30 +55,36 @@ private:
 
 //-------------------------------- Autres définitions dépendantes de <Iterator>
 template<class T>
-inline Iterator<T>::Iterator(const LinkedList<T>& aList) {
+inline Iterator<T>::Iterator(const LinkedList<T>& aList)
+{
     myData = aList.root;
 }
 
 template<class T>
-inline Iterator<T>::~Iterator() {
+inline Iterator<T>::~Iterator()
+{
 
 }
 
 template<class T>
-Iterator<T>& Iterator<T>::operator++() {
-    if(myData != nullptr){
+Iterator<T>& Iterator<T>::operator++()
+{
+    if(myData != nullptr)
+    {
         myData = myData->nextItem;
     }
     return *this;
 }
 
 template<class T>
-T* Iterator<T>::getContents()const {
+T* Iterator<T>::getContents() const
+{
     return (myData->thisItem);
 }
 
 template<class T>
-bool Iterator<T>::atEnd() const {
+bool Iterator<T>::atEnd() const
+{
     return myData== nullptr;
 }
 

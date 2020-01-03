@@ -24,32 +24,29 @@ enum typeSelection{ALL,SIMPLE,COMPLEXE};
 //------------------------------------------------------------------------
 
 
-
-
-
 class Town
 {
 //----------------------------------------------------------------- PUBLIC
 public:
 //----------------------------------------------------- Méthodes publiques
-	int findPath(const LinkedList<const Town>& path, const Town& objective,const LinkedList<const Trip>& trips) const;
+	int findPath(const LinkedList<const Town>& path, const Town& objective, const LinkedList<const Trip>& trips) const;
 
-    int saveTrips(std::ostream & out,typeSelection tripType = ALL, int startIndex = 0, int endIndex = INT32_MAX,const Town* endTownSelect = nullptr)const;
+    int saveTrips(std::ostream & out,typeSelection tripType = ALL, int startIndex = 0, int endIndex = INT32_MAX,
+            const Town* endTownSelect = nullptr) const;
 
-	const char* getName()const;
+	const char* getName() const;
 
-	void showTrips()const;
+	void showTrips() const;
 
 	void addTrip(Trip* newTrip);
 
-	bool isCalled(const char* tName)const;
+	bool isCalled(const char* tName) const;
 
-	int getNumTrips()const;
+	int getNumTrips() const;
 //------------------------------------------------- Surcharge d'opérateurs
-    bool operator == (const Town& oTown)const;
+    bool operator == (const Town& oTown) const;
 
 //-------------------------------------------- Constructeurs - destructeur
-
 
 	Town(const char* tName);
 

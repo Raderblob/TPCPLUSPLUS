@@ -16,7 +16,7 @@
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-struct stopOff {
+struct stopOff{
     Town* t;
     char* method;
 };
@@ -26,13 +26,13 @@ struct stopOff {
 //
 //------------------------------------------------------------------------
 
-class ComplexeTrip :public Trip
+class ComplexeTrip: public Trip
 {
 //----------------------------------------------------------------- PUBLIC
 public:
 //----------------------------------------------------- Méthodes publiques
 	void showTrip() const;
-    bool writeToStream(ostream& out)const;
+    bool writeToStream(ostream& out) const;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -40,7 +40,7 @@ public:
 
 //-------------------------------------------- Constructeurs - destructeur
 
-	ComplexeTrip(Town* begin, Town* end, const char* how,Town** stops,char** stopMeans,int numStops);
+	ComplexeTrip(Town* begin, Town* end, const char* how, Town** stops, char** stopMeans, int numStops);
 	virtual ~ComplexeTrip();
 
 //------------------------------------------------------------------ PRIVE
