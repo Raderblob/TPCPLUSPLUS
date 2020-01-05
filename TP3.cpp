@@ -42,7 +42,10 @@ void testLeak()
             myCatalogue.findPath();
         }else if(strcmp(buffer,"save")==0)
         {
-            ofstream outputFile("test.txt");
+            string fName;
+            cout << "Output File name :" << endl;
+            cin >> fName;
+            ofstream outputFile(fName);
             if(outputFile)
             {
                 myCatalogue.saveCatalogue(outputFile);
@@ -52,12 +55,21 @@ void testLeak()
             }
         }else if(strcmp(buffer,"load")==0)
         {
-            ifstream inputFile("test.txt");
-            if(!myCatalogue.loadCatalogue(inputFile))
+            string fName;
+            ifstream* inputFile = nullptr;
+            do {
+                delete inputFile;
+                cout << "Input File name :" << endl;
+                cin >> fName;
+                inputFile = new ifstream(fName);
+            } while (fName == ""||!(inputFile->is_open()));
+
+            if(!myCatalogue.loadCatalogue(*inputFile))
             {
                 cerr<<"File cannot be loaded"<<endl;
             }
-            inputFile.close();
+            inputFile->close();
+            delete inputFile;
         }
         for (int i = 0; i < INPUTBUFFERSIZE; ++i)
         {
