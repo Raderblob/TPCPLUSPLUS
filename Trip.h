@@ -26,12 +26,29 @@ class Trip
 public:
 //----------------------------------------------------- Méthodes publiques
 	virtual void showTrip() const;
+	// Mode d'emploi :
+	//Print trip to console
+	// Contrat :
+	//
 
 	virtual bool writeToStream(ostream& out) const;
+	// Mode d'emploi :
+	//Write trip to ostream
+	// Contrat :
+	//out must be valid
 
-	const Town& getStart() const;
 	const Town& getEnd() const;
+	// Mode d'emploi :
+	//Returns the destination of the trip (read only)
+	// Contrat :
+	//
+
 	bool getIsSimple() const;
+	// Mode d'emploi :
+	//Returns if the trip is Simple, returns false if complex
+	// Contrat :
+	//
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 

@@ -30,13 +30,41 @@ class LinkedList
 public:
 //----------------------------------------------------- Méthodes publiques
 	void addItem(T* newItem);
+	// Mode d'emploi :
+	//Adds an Item to the end of the list
+	// Contrat :
+	//
+
 	void removeItem(const T& selectItem);
+	// Mode d'emploi :
+	//Remove an Item from the list
+	// Contrat :
+	//
+
 	T* getNextItem() ;
+	// Mode d'emploi :
+	//Returns the item pointed by internal iterator and increments it
+	// Contrat :
+	//
+
 	T* resetCursor();
+	// Mode d'emploi :
+	//Sets internal iterator to start of list
+	// Contrat :
+	//
+
 	bool contains(const T& val) const;
+	// Mode d'emploi :
+	//REturns true if list contains val
+	// Contrat :
+	//
+
 
 	Iterator<T>* getIterator() const;
-
+	// Mode d'emploi :
+	//Returns an external iterator
+	// Contrat :
+	//
 //------------------------------------------------- Surcharge d'opérateurs
 
 

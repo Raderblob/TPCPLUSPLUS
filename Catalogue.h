@@ -37,12 +37,29 @@ public:
     //
 
     bool saveCatalogue(std::ostream& out) const;
+    // Mode d'emploi :
+    //Save the catalogue to the stream given
+    // Contrat :
+    //
 
     bool loadCatalogue(std::istream& in);
+    // Mode d'emploi :
+    //load the catalogue to the stream given
+    // Contrat :
+    //
 
 	void addTrip(std::istream& input=std::cin, bool echo = true, char inputDelimiter = '\n');
+    // Mode d'emploi :
+    //Adds a trip, using the stream give. By default uses manual input
+    // Contrat :
+    //
 
 	void showTrips() const;
+    // Mode d'emploi :
+    //Prints all trips to console
+    // Contrat :
+    //
+
 
 //------------------------------------------------- Surcharge d'opérateurs
 

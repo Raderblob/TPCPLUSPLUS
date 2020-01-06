@@ -34,7 +34,17 @@ class Iterator {
 public:
 //----------------------------------------------------- Méthodes publiques
     T* getContents() const;
+    // Mode d'emploi :
+    //Return contents of iterator
+    // Contrat :
+    //
+
     bool atEnd() const;
+    // Mode d'emploi :
+    //Check if iterator is at the end of the list
+    // Contrat :
+    //
+
 //------------------------------------------------- Surcharge d'opérateurs
     Iterator<T>& operator ++();
 
