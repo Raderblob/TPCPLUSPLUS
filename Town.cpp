@@ -24,37 +24,37 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-int Town::findPath(const LinkedList<const Town>& path, const Town& objective, const LinkedList<const Trip>& trips) const
+int Town::FindPath(const LinkedList<const Town>& path, const Town& objective, const LinkedList<const Trip>& trips) const
 {
 	int res=0;
     Iterator<Trip> myIterator(outboundTrips);
-	for (Trip* i; !myIterator.atEnd();++myIterator)
+	for (Trip* i; !myIterator.AtEnd(); ++myIterator)
 	{
-		i = myIterator.getContents();
-		if (!path.contains(i->getEnd()))
+		i = myIterator.GetContents();
+		if (!path.Contains(i->GetEnd()))
 		{
 			LinkedList<const Trip>* newTrips = new LinkedList<const Trip>(trips);
 			LinkedList<const Town>* newPath = new LinkedList<const Town>(path);
-			newTrips->addItem(i);
-			newPath->addItem(&(i->getEnd()));
-			if (i->getEnd() == objective)
+            newTrips->AddItem(i);
+            newPath->AddItem(&(i->GetEnd()));
+			if (i->GetEnd() == objective)
 			{
-				newPath->resetCursor();
-				for (const Town* o = newPath->getNextItem(); o != nullptr; o = newPath->getNextItem())
+                newPath->ResetCursor();
+				for (const Town* o = newPath->GetNextItem(); o != nullptr; o = newPath->GetNextItem())
 				{
-					cout << o->getName() << " ";
+					cout << o->GetName() << " ";
 				}
 				cout << endl;
-				newTrips->resetCursor();
-				for (const Trip* o = newTrips->getNextItem(); o != nullptr; o = newTrips->getNextItem())
+                newTrips->ResetCursor();
+				for (const Trip* o = newTrips->GetNextItem(); o != nullptr; o = newTrips->GetNextItem())
 				{
-					o->showTrip();
+                    o->ShowTrip();
 				}
 				cout << endl;
 				res++;
 			}
 			else {
-				res += i->getEnd().findPath(*newPath, objective,*newTrips);
+				res += i->GetEnd().FindPath(*newPath, objective, *newTrips);
 				
 			}
 			delete newPath;
@@ -66,22 +66,22 @@ int Town::findPath(const LinkedList<const Town>& path, const Town& objective, co
 	return res;
 }
 
-int Town::saveTrips(ostream& out, typeSelection tripType, int startIndex, int endIndex, const Town* endTownSelect) const
+int Town::SaveTrips(ostream& out, typeSelection tripType, int startIndex, int endIndex, const Town* endTownSelect) const
 {
     int res = 0;
     int indexChecker = 0;
 
     Iterator<Trip> myIterator(outboundTrips);
-    for (Trip* i;  !myIterator.atEnd(); ++myIterator)
+    for (Trip* i; !myIterator.AtEnd(); ++myIterator)
     {
-        i=myIterator.getContents();
-        if(tripType==ALL || (tripType == SIMPLE && i->getIsSimple()) || (tripType == COMPLEXE && !i->getIsSimple()))
+        i= myIterator.GetContents();
+        if(tripType==ALL || (tripType == SIMPLE && i->GetIsSimple()) || (tripType == COMPLEXE && !i->GetIsSimple()))
         {
-            if(endTownSelect== nullptr||i->getEnd()==(*endTownSelect))
+            if(endTownSelect== nullptr|| i->GetEnd() == (*endTownSelect))
             {
                 if (indexChecker >= startIndex && indexChecker <= endIndex)
                 {
-                    i->writeToStream(out);
+                    i->WriteToStream(out);
                     res++;
                 }
                 indexChecker++;
@@ -95,33 +95,33 @@ int Town::saveTrips(ostream& out, typeSelection tripType, int startIndex, int en
     return res;
 }
 
-const char* Town::getName() const
+const char* Town::GetName() const
 {
 	return myName;
 }
 
-void Town::showTrips() const
+void Town::ShowTrips() const
 {
     Iterator<Trip> myIterator(outboundTrips);
-    for (Trip* i; !myIterator.atEnd();++myIterator)
+    for (Trip* i; !myIterator.AtEnd(); ++myIterator)
     {
-        i=myIterator.getContents();
-        i->showTrip();
+        i= myIterator.GetContents();
+        i->ShowTrip();
     }
 }
 
-void Town::addTrip(Trip* newTrip)
+void Town::AddTrip(Trip* newTrip)
 {
-	outboundTrips.addItem(newTrip);
+    outboundTrips.AddItem(newTrip);
 	++numTrips;
 }
 
-bool Town::isCalled(const char* tName) const
+bool Town::IsCalled(const char* tName) const
 {
 	return !strcmp(myName, tName);
 }
 
-int Town::getNumTrips() const
+int Town::GetNumTrips() const
 {
     return numTrips;
 }

@@ -31,15 +31,15 @@ void testLeak()
         cout << endl;
         if (strcmp(buffer, "add") == 0)
         {
-            myCatalogue.addTrip();
+            myCatalogue.AddTrip();
         }
         else if (strcmp(buffer, "show") == 0)
         {
-            myCatalogue.showTrips();
+            myCatalogue.ShowTrips();
         }
         else if (strcmp(buffer, "search") == 0)
         {
-            myCatalogue.findPath();
+            myCatalogue.FindPath();
         }else if(strcmp(buffer,"save")==0)
         {
             string fName;
@@ -48,7 +48,7 @@ void testLeak()
             ofstream outputFile(fName);
             if(outputFile)
             {
-                myCatalogue.saveCatalogue(outputFile);
+                myCatalogue.SaveCatalogue(outputFile);
                 outputFile.close();
             }else{
                 cerr<<"File cannot be saved"<<endl;
@@ -64,7 +64,7 @@ void testLeak()
                 inputFile = new ifstream(fName);
             } while (fName == ""||!(inputFile->is_open()));
 
-            if(!myCatalogue.loadCatalogue(*inputFile))
+            if(!myCatalogue.LoadCatalogue(*inputFile))
             {
                 cerr<<"File cannot be loaded"<<endl;
             }

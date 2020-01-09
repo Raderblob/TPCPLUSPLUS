@@ -21,8 +21,8 @@
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Catalogue>
-//
-//
+// Classe représentant un catalogue de trajets stockés dans leurs villes de
+// départ, ainsi que les méthodes permettant de le manipuler
 //------------------------------------------------------------------------
 
 class Catalogue
@@ -30,31 +30,29 @@ class Catalogue
 //----------------------------------------------------------------- PUBLIC
 public:
 //----------------------------------------------------- Méthodes publiques
-    int findPath() const;
+    int FindPath() const;
     // Mode d'emploi :
     //find a path
-    // Contrat :
-    //
 
-    bool saveCatalogue(std::ostream& out) const;
+    bool SaveCatalogue(std::ostream& out) const;
     // Mode d'emploi :
     //Save the catalogue to the stream given
     // Contrat :
     //
 
-    bool loadCatalogue(std::istream& in);
+    bool LoadCatalogue(std::istream& in);
     // Mode d'emploi :
     //load the catalogue to the stream given
     // Contrat :
     //
 
-    void addTrip(std::istream& input=std::cin, bool echo = true, char inputDelimiter = '\n');
+    void AddTrip(std::istream& input= std::cin, bool echo = true, char inputDelimiter = '\n');
     // Mode d'emploi :
     //Adds a trip, using the stream give. By default uses manual input
     // Contrat :
     //
 
-    void showTrips() const;
+    void ShowTrips() const;
     // Mode d'emploi :
     //Prints all trips to console
     // Contrat :

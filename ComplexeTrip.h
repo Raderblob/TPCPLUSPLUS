@@ -1,14 +1,14 @@
 /*************************************************************************
-                           TrajetCompose  -  Inheriting from Trip, It adds stop off points during the trip
+                           ComplexeTrip  -  Inheriting from Trip, It adds stop off points during the trip
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Interface de la classe <TrajetCompose> (fichier TrajetCompose.h) ----------------
-#if ! defined ( TRAJETCOMPOSE_H )
-#define TRAJETCOMPOSE_H
+//---------- Interface de la classe <ComplexeTrip> (fichier ComplexeTrip.h) ----------------
+#if ! defined ( COMPLEXETRIP_H )
+#define COMPLEXETRIP_H
 
 //--------------------------------------------------- Interfaces utilisées
 #include "Trip.h"
@@ -21,9 +21,8 @@ struct stopOff{
     char* method;
 };
 //------------------------------------------------------------------------
-// Rôle de la classe <TrajetCompose>
-//
-//
+// Rôle de la classe <ComplexeTrip>
+// Trajet héritant de Trip (trajet simple) possédant des arrêts intermédiaires
 //------------------------------------------------------------------------
 
 class ComplexeTrip: public Trip
@@ -31,13 +30,13 @@ class ComplexeTrip: public Trip
 //----------------------------------------------------------------- PUBLIC
 public:
 //----------------------------------------------------- Méthodes publiques
-	void showTrip() const;
+	void ShowTrip() const;
     // Mode d'emploi :
     //Prints trip the console
     // Contrat :
     //
 
-    bool writeToStream(ostream& out) const;
+    bool WriteToStream(ostream& out) const;
     // Mode d'emploi :
     //Write trip to ouput stream
     // Contrat :
@@ -49,6 +48,7 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
 
 	ComplexeTrip(Town* begin, Town* end, const char* how, Town** stops, char** stopMeans, int numStops);
+
 	virtual ~ComplexeTrip();
 
 //------------------------------------------------------------------ PRIVE
@@ -61,4 +61,4 @@ private:
 };
 //-------------------------------- Autres définitions dépendantes de <TrajetCompose>
 
-#endif // TRAJETCOMPOSE_H
+#endif // COMPLEXETRIP_H

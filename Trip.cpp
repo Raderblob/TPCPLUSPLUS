@@ -1,12 +1,12 @@
 /*************************************************************************
-                           TrajetSimple  -  A class holding start end and means of a trip
+                           Trip  -  A class holding start end and means of a trip
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Réalisation de la classe <TrajetSimple> (fichier TrajetSimple.cpp) ------------
+//---------- Réalisation de la classe <Trip> (fichier Trip.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -27,24 +27,31 @@ using namespace std;
 
 
 
-void Trip::showTrip() const
+void Trip::ShowTrip() const
 {
-	cout << "Simple trip from:" << start->getName() << " To:" << destination->getName()<< " using: " <<means<<endl;
+	cout << "Simple trip from:" << start->GetName() << " To:" << destination->GetName() << " using: " << means << endl;
 
 }
 
-bool Trip::writeToStream(ostream& out) const
+bool Trip::WriteToStream(ostream& out) const
 {
-    out<<"0 " << start->getName()<<" "<<destination->getName()<<" "<< means<<endl;
+
+    if (out.fail())
+    {
+        cout << "invalid stream state for <WriteToStream>" << endl;
+        return false;
+    }
+
+    out << "0 " << start->GetName() << " " << destination->GetName() << " " << means << endl;
 	return out.good();
 }
 
-const Town& Trip::getEnd() const
+const Town& Trip::GetEnd() const
 {
 	return *destination;
 }
 
-bool Trip::getIsSimple() const
+bool Trip::GetIsSimple() const
 {
     return isSimple;
 }

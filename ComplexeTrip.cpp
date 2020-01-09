@@ -26,24 +26,30 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void ComplexeTrip::showTrip() const
+void ComplexeTrip::ShowTrip() const
 {
-	cout << "Complexe trip from: " << start->getName() << " then leaving using " << means;
+	cout << "Complexe trip from: " << start->GetName() << " then leaving using " << means;
 	
 	for (int i = 0; i < numStopOffs; ++i)
 	{
-		cout << " to: " << stopOffs[i].t->getName() << " then leaving using " << stopOffs[i].method;
+		cout << " to: " << stopOffs[i].t->GetName() << " then leaving using " << stopOffs[i].method;
 	}
 
-	cout<<" to:" << destination->getName() << endl;
+	cout << " to:" << destination->GetName() << endl;
 }
 
-bool ComplexeTrip::writeToStream(ostream& out) const
+bool ComplexeTrip::WriteToStream(ostream& out) const
 {
-    out<<numStopOffs<<DELIMITER<< start->getName()<<DELIMITER<<destination->getName()<<DELIMITER<< means<<DELIMITER;
+
+    if (out.fail())
+    {
+        cout << "invalid stream state for <WriteToStream>" << endl;
+        return false;
+    }
+    out << numStopOffs << DELIMITER << start->GetName() << DELIMITER << destination->GetName() << DELIMITER << means << DELIMITER;
     for(int i = 0;i<numStopOffs;++i)
     {
-        out<<stopOffs[i].t->getName()<<DELIMITER<<stopOffs[i].method<<DELIMITER;
+        out << stopOffs[i].t->GetName() << DELIMITER << stopOffs[i].method << DELIMITER;
     }
     out<<endl;
 	return out.good();

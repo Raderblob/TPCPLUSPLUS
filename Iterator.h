@@ -33,13 +33,13 @@ class Iterator {
 //----------------------------------------------------------------- PUBLIC
 public:
 //----------------------------------------------------- Méthodes publiques
-    T* getContents() const;
+    T* GetContents() const;
     // Mode d'emploi :
     //Return contents of iterator
     // Contrat :
     //
 
-    bool atEnd() const;
+    bool AtEnd() const;
     // Mode d'emploi :
     //Check if iterator is at the end of the list
     // Contrat :
@@ -87,13 +87,13 @@ Iterator<T>& Iterator<T>::operator++()
 }
 
 template<class T>
-T* Iterator<T>::getContents() const
+T* Iterator<T>::GetContents() const
 {
     return (myData->thisItem);
 }
 
 template<class T>
-bool Iterator<T>::atEnd() const
+bool Iterator<T>::AtEnd() const
 {
     return myData== nullptr;
 }

@@ -30,7 +30,7 @@ const int INPUTBUFFER = 100;
 
 //----------------------------------------------------- Méthodes publiques
 
-int Catalogue::findPath() const
+int Catalogue::FindPath() const
 {
     cin.ignore(INPUTBUFFER,'\n');
     char buffer1[INPUTBUFFER], buffer2[INPUTBUFFER];
@@ -57,8 +57,15 @@ void Catalogue::readInput(T& dest) const
     } while (cin.fail());
 }
 
-bool Catalogue::saveCatalogue(ostream& out) const
+bool Catalogue::SaveCatalogue(ostream& out) const
 {
+
+    if (out.fail())
+    {
+        cout << "invalid stream state for <SaveCatalogue>" << endl;
+        return false;
+    }
+
     //buffer and restriction variables
     typeSelection tripType = ALL;
     char buffer[INPUTBUFFER];
@@ -66,7 +73,6 @@ bool Catalogue::saveCatalogue(ostream& out) const
     bool selectFromCertainTown = false;
     int startInterval = 0, endInterval = INT32_MAX, intervalCounter = 0;
     const Town* destinationTown = nullptr;
-
 
     //ask user for all restrictions
     cout<<"save all types of trips?(yes/no)"<<endl;
@@ -118,23 +124,30 @@ bool Catalogue::saveCatalogue(ostream& out) const
     int res = 0;
     //start going through trips stored in memory and saving those selected
     Iterator<Town> myIterator(allTowns);
-    for (Town*  i; !myIterator.atEnd(); ++myIterator)
+    for (Town*  i; !myIterator.AtEnd(); ++myIterator)
     {
-        i = myIterator.getContents();
-        if(!selectFromCertainTown || i->isCalled(originSelect))
+        i = myIterator.GetContents();
+        if(!selectFromCertainTown || i->IsCalled(originSelect))
         {
-            res += i->saveTrips(tempOut, tripType, startInterval-intervalCounter,
-                                endInterval-intervalCounter, destinationTown);
+            res += i->SaveTrips(tempOut, tripType, startInterval - intervalCounter,
+                                endInterval - intervalCounter, destinationTown);
         }
-        intervalCounter+=i->getNumTrips();
+        intervalCounter+= i->GetNumTrips();
     }
 
     out<<res<<endl<<tempOut.str();
     return out.good();
 }
 
-bool Catalogue::loadCatalogue(std::istream &in)
+bool Catalogue::LoadCatalogue(std::istream &in)
 {
+
+    if (in.fail())
+    {
+        cout << "invalid stream state for <LoadCatalogue>" << endl;
+        return false;
+    }
+
     //buffer and restriction variables
     typeSelection tripType = ALL;
     int startLimit = 0,endLimit = INT32_MAX;
@@ -227,7 +240,7 @@ bool Catalogue::loadCatalogue(std::istream &in)
                 lineStream.seekg(0, ios_base::beg); //return to start of line
                 if (readTrip)
                 {
-                    addTrip(lineStream, false, ' ');//create objects in memory (same as fonction for manual input)
+                    AddTrip(lineStream, false, ' ');//create objects in memory (same as fonction for manual input)
                 }
             }
         }
@@ -236,7 +249,7 @@ bool Catalogue::loadCatalogue(std::istream &in)
     return false;
 }
 
-void Catalogue::addTrip(istream& input, bool echo, char inputDelimiter)
+void Catalogue::AddTrip(istream& input, bool echo, char inputDelimiter)
 {
 
     int numStops;
@@ -317,13 +330,13 @@ void Catalogue::addTrip(istream& input, bool echo, char inputDelimiter)
     }
 }
 
-void Catalogue::showTrips() const
+void Catalogue::ShowTrips() const
 {
     Iterator<Town> myIterator(allTowns);
-    for (Town* i ; !myIterator.atEnd(); ++myIterator)
+    for (Town* i ; !myIterator.AtEnd(); ++myIterator)
     {
-        i=myIterator.getContents();
-        i->showTrips();
+        i= myIterator.GetContents();
+        i->ShowTrips();
     }
 }
 
@@ -356,7 +369,7 @@ void Catalogue::addTrip(const char* startingPoint, const char* finishingPoint, c
     o = addOrGetTown(finishingPoint);
 
     Trip* newTrip = new Trip(i, o, meansOfTransport);
-    i->addTrip(newTrip);
+    i->AddTrip(newTrip);
     delete[] startingPoint;
     delete[] finishingPoint;
     delete[] meansOfTransport;
@@ -380,7 +393,7 @@ void Catalogue::addComplexeTrip(const char* startingPoint, const char* finishing
     o = addOrGetTown(finishingPoint);
 
     Trip* newTrip = new ComplexeTrip(i, o, meansOfTransport,nSt,stopMeans,numStops);
-    i->addTrip(newTrip);
+    i->AddTrip(newTrip);
     delete[] startingPoint;
     delete[] finishingPoint;
     delete[] meansOfTransport;
@@ -402,22 +415,22 @@ int Catalogue::findPath(const char* a, const char* b) const
     int res = 0;
     Iterator<Town> myIterator(allTowns);
 
-    for (Town* i; !myIterator.atEnd();++myIterator)
+    for (Town* i; !myIterator.AtEnd(); ++myIterator)
     {
-        i=myIterator.getContents();
-        if (i->isCalled(a))
+        i= myIterator.GetContents();
+        if (i->IsCalled(a))
         {
 
             Iterator<Town> myIterator2(allTowns);
-            for (Town* o ; !myIterator2.atEnd(); ++myIterator2)
+            for (Town* o ; !myIterator2.AtEnd(); ++myIterator2)
             {
-                o=myIterator2.getContents();
-                if (o->isCalled(b))
+                o= myIterator2.GetContents();
+                if (o->IsCalled(b))
                 {
                     LinkedList<const Town>* path = new LinkedList<const Town>(false);
                     LinkedList<const Trip>* trips = new LinkedList<const Trip>(false);
-                    path->addItem(i);
-                    res = i->findPath(*path, *o,trips);
+                    path->AddItem(i);
+                    res = i->FindPath(*path, *o, trips);
                     delete path;
                     delete trips;
                 }
@@ -434,10 +447,10 @@ int Catalogue::findPath(const char* a, const char* b) const
 Town* Catalogue::addOrGetTown(const char* townName)
 {
     Town* i;
-    allTowns.resetCursor();
-    for (i = allTowns.getNextItem(); i != nullptr; i = allTowns.getNextItem())
+    allTowns.ResetCursor();
+    for (i = allTowns.GetNextItem(); i != nullptr; i = allTowns.GetNextItem())
     {
-        if (i->isCalled(townName))
+        if (i->IsCalled(townName))
         {
             break;
         }
@@ -446,7 +459,7 @@ Town* Catalogue::addOrGetTown(const char* townName)
     if (i == nullptr)
     {
         Town* newTown = new Town(townName);
-        allTowns.addItem(newTown);
+        allTowns.AddItem(newTown);
         i = newTown;
     }
     return i;
@@ -455,10 +468,10 @@ Town* Catalogue::addOrGetTown(const char* townName)
 const Town* Catalogue::getConstTown(const char* townName) const
 {
     const Town* res;
-    for (Iterator<Town> myIterator(allTowns);  !myIterator.atEnd(); ++myIterator)
+    for (Iterator<Town> myIterator(allTowns); !myIterator.AtEnd(); ++myIterator)
     {
-        res = myIterator.getContents();
-        if(res->isCalled(townName))
+        res = myIterator.GetContents();
+        if(res->IsCalled(townName))
         {
             return res;
         }

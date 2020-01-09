@@ -16,12 +16,6 @@
 //------------------------------------------------------------------ Types
 
 
-//------------------------------------------------------------------------
-//
-//
-//
-//------------------------------------------------------------------------
-
 template<class T>
 class LinkedList
 {
@@ -29,38 +23,38 @@ class LinkedList
 //----------------------------------------------------------------- PUBLIC
 public:
 //----------------------------------------------------- Méthodes publiques
-	void addItem(T* newItem);
+	void AddItem(T* newItem);
 	// Mode d'emploi :
-	//Adds an Item to the end of the list
+	// Adds an Item to the end of the list
 	// Contrat :
 	//
 
-	void removeItem(const T& selectItem);
+	void RemoveItem(const T& selectItem);
 	// Mode d'emploi :
-	//Remove an Item from the list
+	// Remove an Item from the list
 	// Contrat :
 	//
 
-	T* getNextItem() ;
+	T* GetNextItem() ;
 	// Mode d'emploi :
-	//Returns the item pointed by internal iterator and increments it
+	// Returns the item pointed by internal iterator and increments it
 	// Contrat :
 	//
 
-	T* resetCursor();
+	T* ResetCursor();
 	// Mode d'emploi :
-	//Sets internal iterator to start of list
+	// Sets internal iterator to start of list
 	// Contrat :
 	//
 
-	bool contains(const T& val) const;
+	bool Contains(const T& val) const;
 	// Mode d'emploi :
-	//REturns true if list contains val
+	// Returns true if list contains val
 	// Contrat :
 	//
 
 
-	Iterator<T>* getIterator() const;
+	Iterator<T>* GetIterator() const;
 	// Mode d'emploi :
 	//Returns an external iterator
 	// Contrat :
@@ -70,7 +64,9 @@ public:
 
 //-------------------------------------------- Constructeurs - destructeur
 	LinkedList(bool ClearOnDeletion = true);
+
 	LinkedList(const LinkedList<T>& oList);
+
 	virtual ~LinkedList();
 //------------------------------------------------------------------ PRIVE
 
@@ -83,9 +79,10 @@ private:
 	Item<T>* cursor;
 	bool deleteContentsOnDeletion;
 };
+
 //-------------------------------- Autres définitions dépendantes de <TrajetCompose>
 template<class T>
-inline void LinkedList<T>::addItem(T* newItem)
+inline void LinkedList<T>::AddItem(T* newItem)
 {
 	Item<T>* newCell = new Item<T>;
 	newCell->nextItem = nullptr;
@@ -109,7 +106,7 @@ inline void LinkedList<T>::addItem(T* newItem)
 }
 
 template<class T>
-inline void LinkedList<T>::removeItem(const T& selectItem)
+inline void LinkedList<T>::RemoveItem(const T& selectItem)
 {
 	if (*(root->thisItem) == selectItem)
 	{
@@ -139,7 +136,7 @@ inline void LinkedList<T>::removeItem(const T& selectItem)
 }
 
 template<class T>
-inline T* LinkedList<T>::getNextItem()
+inline T* LinkedList<T>::GetNextItem()
 {
 	T* res = nullptr;
 	
@@ -152,7 +149,7 @@ inline T* LinkedList<T>::getNextItem()
 }
 
 template<class T>
-inline T* LinkedList<T>::resetCursor()
+inline T* LinkedList<T>::ResetCursor()
 {
 	cursor = root;
 	if(cursor != nullptr)
@@ -161,7 +158,7 @@ inline T* LinkedList<T>::resetCursor()
 }
 
 template<class T>
-inline bool LinkedList<T>::contains(const T& val) const
+inline bool LinkedList<T>::Contains(const T& val) const
 {
 
 
@@ -176,7 +173,7 @@ inline bool LinkedList<T>::contains(const T& val) const
 }
 
 template<class T>
-inline Iterator<T>* LinkedList<T>::getIterator() const
+inline Iterator<T>* LinkedList<T>::GetIterator() const
 {
     Iterator<T>* res = new Iterator<T>(*this);
 	return res;
@@ -203,7 +200,7 @@ inline LinkedList<T>::LinkedList(const LinkedList<T>& oList)
 	Item<T>* i;
 	for (i = oList.root; i != nullptr; i = i->nextItem)
 	{
-		this->addItem(i->thisItem);
+        this->AddItem(i->thisItem);
 	}
 
 
