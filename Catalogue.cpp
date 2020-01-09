@@ -45,6 +45,7 @@ int Catalogue::findPath() const
 
 bool Catalogue::saveCatalogue(ostream& out) const
 {
+    //buffer and restriction variables
     typeSelection tripType = ALL;
     char buffer[INPUTBUFFER];
     char originSelect[INPUTBUFFER];
@@ -52,6 +53,8 @@ bool Catalogue::saveCatalogue(ostream& out) const
     int startInterval = 0,endInterval = INT32_MAX,intervalCounter =0;
     const Town* destinationTown = nullptr;
 
+
+    //ask user for all restrictions
     cout<<"save all types of trips?(yes/no)"<<endl;
     cin>>buffer;
     if(strcmp(buffer,"yes"))
@@ -101,7 +104,7 @@ bool Catalogue::saveCatalogue(ostream& out) const
 
     stringstream tempOut;
     int res = 0;
-
+    //start going through trips stored in memory and saving those selected
     Iterator<Town> myIterator(allTowns);
     for (Town*  i; !myIterator.atEnd(); ++myIterator)
     {
@@ -120,11 +123,14 @@ bool Catalogue::saveCatalogue(ostream& out) const
 
 bool Catalogue::loadCatalogue(std::istream &in)
 {
+    //buffer and restriction variables
     typeSelection tripType = ALL;
     int startLimit=0,endLimit=INT32_MAX;
     string buffer;
     string startTown,endTown;
     bool limitToCertainStartTown = false,limitToCertainEndTown = false;
+
+    //ask user for restrictions
     cout<<"Load all types of trips?(yes/no)"<<endl;
     cin>>buffer;
 
@@ -175,12 +181,13 @@ bool Catalogue::loadCatalogue(std::istream &in)
         replaceCharacter(endTown,' ','-');
     }
 
+    //read file
     if(in)
     {
         int numLines;
         in>> numLines;
         in.ignore(INPUTBUFFER,'\n');
-        for (int i = 0; i < numLines; ++i)
+        for (int i = 0; i < numLines; ++i) // loop for each trip (line)
         {
             string lineBuffer;
             getline(in, lineBuffer);
@@ -205,10 +212,10 @@ bool Catalogue::loadCatalogue(std::istream &in)
                     readTrip= false;
                 }
 
-                lineStream.seekg(0, ios_base::beg);
+                lineStream.seekg(0, ios_base::beg); //return to start of line
                 if (readTrip)
                 {
-                    addTrip(lineStream, false, ' ');
+                    addTrip(lineStream, false, ' ');//create objects in memory (same as fonction for manual input)
                 }
             }
         }
