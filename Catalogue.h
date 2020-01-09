@@ -30,7 +30,7 @@ class Catalogue
 //----------------------------------------------------------------- PUBLIC
 public:
 //----------------------------------------------------- Méthodes publiques
-	int findPath() const;
+    int findPath() const;
     // Mode d'emploi :
     //find a path
     // Contrat :
@@ -48,13 +48,13 @@ public:
     // Contrat :
     //
 
-	void addTrip(std::istream& input=std::cin, bool echo = true, char inputDelimiter = '\n');
+    void addTrip(std::istream& input=std::cin, bool echo = true, char inputDelimiter = '\n');
     // Mode d'emploi :
     //Adds a trip, using the stream give. By default uses manual input
     // Contrat :
     //
 
-	void showTrips() const;
+    void showTrips() const;
     // Mode d'emploi :
     //Prints all trips to console
     // Contrat :
@@ -67,9 +67,9 @@ public:
 
 //-------------------------------------------- Constructeurs - destructeur
 
-	Catalogue();
+    Catalogue();
 
-	virtual ~Catalogue();
+    virtual ~Catalogue();
 
 //------------------------------------------------------------------ PRIVE
 
@@ -77,22 +77,27 @@ public:
 private:
 //----------------------------------------------------- Méthodes protégées
 
-	void addTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport);
+    template <typename T>
+    void readInput(T& dest) const;
 
-	void addComplexeTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport,
-	        char** stops, char** stopMeans, int numStops);
+    void addTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport);
+
+    void addComplexeTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport,
+                         char** stops, char** stopMeans, int numStops);
 
     int findPath(const char* a, const char* b) const;
 
-	Town* addOrGetTown(const char* townName);
+    Town* addOrGetTown(const char* townName);
 
     const Town* getConstTown(const char* townName) const;
 
-	void replaceCharacter(char* aString, char oldChar, char newChar) const;
+    void replaceCharacter(char* aString, char oldChar, char newChar) const;
 
     void replaceCharacter(std::string& aString, char oldChar, char newChar) const;
+
+
 //----------------------------------------------------- Attributs protégés
-	LinkedList<Town> allTowns;
+    LinkedList<Town> allTowns;
 
 };
 

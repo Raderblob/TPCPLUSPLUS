@@ -33,14 +33,28 @@ const int INPUTBUFFER = 100;
 int Catalogue::findPath() const
 {
     cin.ignore(INPUTBUFFER,'\n');
-	char buffer1[INPUTBUFFER],buffer2[INPUTBUFFER];
-	cout << "From: ";
-	cin.getline(buffer1,INPUTBUFFER);
-	replaceCharacter(buffer1,' ','-');
-	cout << " To: ";
+    char buffer1[INPUTBUFFER], buffer2[INPUTBUFFER];
+    cout << "From: ";
+    cin.getline(buffer1, INPUTBUFFER);
+    replaceCharacter(buffer1,' ','-');
+    cout << " To: ";
     cin.getline(buffer2,INPUTBUFFER);
     replaceCharacter(buffer2,' ','-');
-	return findPath(buffer1, buffer2);
+    return findPath(buffer1, buffer2);
+}
+
+template <typename T>
+void Catalogue::readInput(T& dest) const
+{
+    do {
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(INPUTBUFFER, '\n');
+            cout << "input wrong try again" << endl;
+        }
+        cin >> dest;
+    } while (cin.fail());
 }
 
 bool Catalogue::saveCatalogue(ostream& out) const
@@ -50,7 +64,7 @@ bool Catalogue::saveCatalogue(ostream& out) const
     char buffer[INPUTBUFFER];
     char originSelect[INPUTBUFFER];
     bool selectFromCertainTown = false;
-    int startInterval = 0,endInterval = INT32_MAX,intervalCounter =0;
+    int startInterval = 0, endInterval = INT32_MAX, intervalCounter = 0;
     const Town* destinationTown = nullptr;
 
 
@@ -95,25 +109,9 @@ bool Catalogue::saveCatalogue(ostream& out) const
     if(strcmp(buffer,"no"))
     {
         cout<<"Start interval(Starts at 0):"<<endl;
-        do {
-            if (cin.fail())
-            {
-                cin.clear();
-                cin.ignore(INPUTBUFFER, '\n');
-                cout << "input wrong try again" << endl;
-            }
-            cin >> startInterval;
-        } while (cin.fail());
+        readInput(startInterval);
         cout<<"end interval:"<<endl;
-        do {
-            if (cin.fail())
-            {
-                cin.clear();
-                cin.ignore(INPUTBUFFER, '\n');
-                cout << "input wrong try again" << endl;
-            }
-            cin >> endInterval;
-        } while (cin.fail());
+        readInput(endInterval);
     }
 
     stringstream tempOut;
@@ -125,24 +123,24 @@ bool Catalogue::saveCatalogue(ostream& out) const
         i = myIterator.getContents();
         if(!selectFromCertainTown || i->isCalled(originSelect))
         {
-            res += i->saveTrips(tempOut, tripType,startInterval-intervalCounter,
-                    endInterval-intervalCounter, destinationTown);
+            res += i->saveTrips(tempOut, tripType, startInterval-intervalCounter,
+                                endInterval-intervalCounter, destinationTown);
         }
         intervalCounter+=i->getNumTrips();
     }
 
     out<<res<<endl<<tempOut.str();
-	return out.good();
+    return out.good();
 }
 
 bool Catalogue::loadCatalogue(std::istream &in)
 {
     //buffer and restriction variables
     typeSelection tripType = ALL;
-    int startLimit=0,endLimit=INT32_MAX;
+    int startLimit = 0,endLimit = INT32_MAX;
     string buffer;
-    string startTown,endTown;
-    bool limitToCertainStartTown = false,limitToCertainEndTown = false;
+    string startTown, endTown;
+    bool limitToCertainStartTown = false, limitToCertainEndTown = false;
 
     //ask user for restrictions
     cout<<"Load all types of trips?(yes/no)"<<endl;
@@ -166,25 +164,9 @@ bool Catalogue::loadCatalogue(std::istream &in)
     if(buffer=="yes")
     {
         cout<<"Start limit: (starts at 0)"<<endl;
-        do {
-            if (cin.fail())
-            {
-                cin.clear();
-                cin.ignore(INPUTBUFFER, '\n');
-                cout << "input wrong try again" << endl;
-            }
-            cin >> startLimit;
-        } while (cin.fail());
+        readInput(startLimit);
         cout<<"endLimit: "<<endl;
-        do {
-            if (cin.fail())
-            {
-                cin.clear();
-                cin.ignore(INPUTBUFFER, '\n');
-                cout << "input wrong try again" << endl;
-            }
-            cin >> endLimit;
-        } while (cin.fail());
+        readInput(endLimit);
     }
 
     cout<<"Load only trips from a certain start town?(yes/no)"<<endl;
@@ -257,24 +239,16 @@ bool Catalogue::loadCatalogue(std::istream &in)
 void Catalogue::addTrip(istream& input, bool echo, char inputDelimiter)
 {
 
-	int numStops;
-	char buffer[INPUTBUFFER];
-	char* startingPoint,*finishingPoint,*meansOfTransport;
+    int numStops;
+    char buffer[INPUTBUFFER];
+    char* startingPoint, *finishingPoint, *meansOfTransport;
 
     if(echo)
     {
         cout << "Number of stopoff points\n";
     }
 
-    do {
-        if(input.fail())
-        {
-            input.clear();
-            input.ignore(INPUTBUFFER,'\n');
-            cout<<"input wrong try again"<<endl;
-        }
-        input >> numStops;
-    }while(input.fail());
+    readInput(numStops);
 
     if(echo)
     {
@@ -284,8 +258,8 @@ void Catalogue::addTrip(istream& input, bool echo, char inputDelimiter)
     input.getline(buffer,INPUTBUFFER,inputDelimiter);
     replaceCharacter(buffer,' ','-');
 
-	startingPoint = new char[strlen(buffer) + 1];
-	strcpy(startingPoint, buffer);
+    startingPoint = new char[strlen(buffer) + 1];
+    strcpy(startingPoint, buffer);
 
     if(echo)
     {
@@ -294,8 +268,8 @@ void Catalogue::addTrip(istream& input, bool echo, char inputDelimiter)
     input.getline(buffer,INPUTBUFFER,inputDelimiter);
     replaceCharacter(buffer,' ','-');
 
-	finishingPoint = new char[strlen(buffer) + 1];
-	strcpy(finishingPoint, buffer);
+    finishingPoint = new char[strlen(buffer) + 1];
+    strcpy(finishingPoint, buffer);
 
     if(echo)
     {
@@ -304,20 +278,20 @@ void Catalogue::addTrip(istream& input, bool echo, char inputDelimiter)
     input.getline(buffer,INPUTBUFFER,inputDelimiter);
     replaceCharacter(buffer,' ','-');
 
-	meansOfTransport = new char[strlen(buffer) + 1];
-	strcpy(meansOfTransport, buffer);
+    meansOfTransport = new char[strlen(buffer) + 1];
+    strcpy(meansOfTransport, buffer);
 
 
-	if (numStops == 0)
-	{
-		addTrip(startingPoint, finishingPoint, meansOfTransport);
-	}
-	else {
-		char** stops, ** stopMeans;
-		stops = new char* [numStops];
-		stopMeans = new char* [numStops];
-		for (int i = 0; i < numStops; ++i)
-		{
+    if (numStops == 0)
+    {
+        addTrip(startingPoint, finishingPoint, meansOfTransport);
+    }
+    else {
+        char** stops, ** stopMeans;
+        stops = new char* [numStops];
+        stopMeans = new char* [numStops];
+        for (int i = 0; i < numStops; ++i)
+        {
             if(echo)
             {
                 cout << i << " st stop\n";
@@ -325,8 +299,8 @@ void Catalogue::addTrip(istream& input, bool echo, char inputDelimiter)
             input.getline(buffer,INPUTBUFFER,inputDelimiter);
             replaceCharacter(buffer,' ','-');
 
-			stops[i] = new char[strlen(buffer) + 1];
-			strcpy(stops[i], buffer);
+            stops[i] = new char[strlen(buffer) + 1];
+            strcpy(stops[i], buffer);
 
             if(echo)
             {
@@ -335,22 +309,22 @@ void Catalogue::addTrip(istream& input, bool echo, char inputDelimiter)
             input.getline(buffer,INPUTBUFFER,inputDelimiter);
             replaceCharacter(buffer,' ','-');
 
-			stopMeans[i] = new char[strlen(buffer) + 1];
-			strcpy(stopMeans[i], buffer);
-		}
+            stopMeans[i] = new char[strlen(buffer) + 1];
+            strcpy(stopMeans[i], buffer);
+        }
 
-		addComplexeTrip(startingPoint, finishingPoint, meansOfTransport, stops, stopMeans, numStops);
-	}
+        addComplexeTrip(startingPoint, finishingPoint, meansOfTransport, stops, stopMeans, numStops);
+    }
 }
 
 void Catalogue::showTrips() const
 {
     Iterator<Town> myIterator(allTowns);
-	for (Town* i ; !myIterator.atEnd(); ++myIterator)
-	{
-	    i=myIterator.getContents();
-		i->showTrips();
-	}
+    for (Town* i ; !myIterator.atEnd(); ++myIterator)
+    {
+        i=myIterator.getContents();
+        i->showTrips();
+    }
 }
 
 
@@ -389,7 +363,7 @@ void Catalogue::addTrip(const char* startingPoint, const char* finishingPoint, c
 }
 
 void Catalogue::addComplexeTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport,
-        char** stops, char** stopMeans, int numStops)
+                                char** stops, char** stopMeans, int numStops)
 {
     Town* i, * o;
     Town** nSt = new Town*[numStops];
@@ -457,7 +431,7 @@ int Catalogue::findPath(const char* a, const char* b) const
     return res;
 }
 
- Town* Catalogue::addOrGetTown(const char* townName)
+Town* Catalogue::addOrGetTown(const char* townName)
 {
     Town* i;
     allTowns.resetCursor();
