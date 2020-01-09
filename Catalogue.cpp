@@ -50,7 +50,7 @@ bool Catalogue::saveCatalogue(ostream& out) const
     char buffer[INPUTBUFFER];
     char originSelect[INPUTBUFFER];
     bool selectFromCertainTown = false;
-    int startInterval = 0,endInterval = INT32_MAX,intervalCounter =0;
+    unsigned int startInterval = 0,endInterval = INT32_MAX,intervalCounter =0;
     const Town* destinationTown = nullptr;
 
 
@@ -95,9 +95,25 @@ bool Catalogue::saveCatalogue(ostream& out) const
     if(strcmp(buffer,"no"))
     {
         cout<<"Start interval(Starts at 0):"<<endl;
-        cin>>startInterval;
+        do {
+            if (cin.fail())
+            {
+                cin.clear();
+                cin.ignore(INPUTBUFFER, '\n');
+                cout << "input wrong try again" << endl;
+            }
+            cin >> startInterval;
+        } while (cin.fail());
         cout<<"end interval:"<<endl;
-        cin>>endInterval;
+        do {
+            if (cin.fail())
+            {
+                cin.clear();
+                cin.ignore(INPUTBUFFER, '\n');
+                cout << "input wrong try again" << endl;
+            }
+            cin >> endInterval;
+        } while (cin.fail());
     }
 
     stringstream tempOut;
@@ -123,7 +139,7 @@ bool Catalogue::loadCatalogue(std::istream &in)
 {
     //buffer and restriction variables
     typeSelection tripType = ALL;
-    int startLimit=0,endLimit=INT32_MAX;
+    unsigned int startLimit=0,endLimit=INT32_MAX;
     string buffer;
     string startTown,endTown;
     bool limitToCertainStartTown = false,limitToCertainEndTown = false;
@@ -150,9 +166,25 @@ bool Catalogue::loadCatalogue(std::istream &in)
     if(buffer=="yes")
     {
         cout<<"Start limit: (starts at 0)"<<endl;
-        cin>>startLimit;
+        do {
+            if (cin.fail())
+            {
+                cin.clear();
+                cin.ignore(INPUTBUFFER, '\n');
+                cout << "input wrong try again" << endl;
+            }
+            cin >> startLimit;
+        } while (cin.fail());
         cout<<"endLimit: "<<endl;
-        cin>>endLimit;
+        do {
+            if (cin.fail())
+            {
+                cin.clear();
+                cin.ignore(INPUTBUFFER, '\n');
+                cout << "input wrong try again" << endl;
+            }
+            cin >> endLimit;
+        } while (cin.fail());
     }
 
     cout<<"Load only trips from a certain start town?(yes/no)"<<endl;
