@@ -1,5 +1,6 @@
 /*************************************************************************
                            Town
+			   Contains a list of all trips leaving from the town
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
