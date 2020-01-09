@@ -50,7 +50,7 @@ bool Catalogue::saveCatalogue(ostream& out) const
     char buffer[INPUTBUFFER];
     char originSelect[INPUTBUFFER];
     bool selectFromCertainTown = false;
-    unsigned int startInterval = 0,endInterval = INT32_MAX,intervalCounter =0;
+    int startInterval = 0,endInterval = INT32_MAX,intervalCounter =0;
     const Town* destinationTown = nullptr;
 
 
@@ -139,7 +139,7 @@ bool Catalogue::loadCatalogue(std::istream &in)
 {
     //buffer and restriction variables
     typeSelection tripType = ALL;
-    unsigned int startLimit=0,endLimit=INT32_MAX;
+    int startLimit=0,endLimit=INT32_MAX;
     string buffer;
     string startTown,endTown;
     bool limitToCertainStartTown = false,limitToCertainEndTown = false;
