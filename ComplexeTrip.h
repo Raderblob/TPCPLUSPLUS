@@ -1,5 +1,5 @@
 /*************************************************************************
-                           TrajetCompose  -  Inheriting from TrajetSimple, It adds stop off points during the trip
+                           TrajetCompose  -  Inheriting from Trip, It adds stop off points during the trip
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
