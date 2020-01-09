@@ -74,7 +74,6 @@ bool Catalogue::saveCatalogue(ostream& out) const
     {
         selectFromCertainTown = true;
         cout<<"Enter town name:"<<endl;
-        //cin>>originSelect;//needs to be changes to getline
         cin.ignore(INPUTBUFFER,'\n');
         cin.getline(originSelect,INPUTBUFFER);
         replaceCharacter(originSelect,' ','-');
@@ -85,7 +84,6 @@ bool Catalogue::saveCatalogue(ostream& out) const
     if(strcmp(buffer,"no"))
     {
         cout<<"Enter town name: "<<endl;
-        //cin>>buffer;//needs to be changes to getline
         cin.ignore(INPUTBUFFER,'\n');
         cin.getline(buffer,INPUTBUFFER);
         replaceCharacter(buffer,' ','-');

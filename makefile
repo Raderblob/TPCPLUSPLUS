@@ -1,5 +1,7 @@
+# --- Makefile pour le TP3 de C++ ---
+# utiliser la commande make all pour créer l'exécutable du projet
 
-CC = g++
+# mettre DEBUG à la valeur yes pour créer l'exécutable en mode debug
 DEBUG=yes
 ifeq ($(DEBUG),yes)
 	CFLAGS=-Wall -Werror -ansi -pedantic -std=c++11 -g -D MAP
@@ -8,6 +10,7 @@ else
 	CFLAGS=-Wall -Werror -ansi -pedantic -std=c++11
 	LDFLAGS=
 endif
+CC = g++
 EXEC = TestMain
 SRC= TP3.cpp Catalogue.cpp ComplexeTrip.cpp Town.cpp Trip.cpp
 OBJ= $(SRC:.cpp=.o)
