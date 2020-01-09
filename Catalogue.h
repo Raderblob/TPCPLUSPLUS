@@ -1,5 +1,5 @@
 /*************************************************************************
-                           Catalogue  -  Contains the main library and the branch network.
+                           Catalogue  -  Contains the main library and list of all towns.
                            Contains fonctions that allows users to interact with the information
                              -------------------
     début                : $DATE$
