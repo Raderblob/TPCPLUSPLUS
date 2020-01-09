@@ -460,6 +460,7 @@ void Catalogue::replaceCharacter(char* aString, char oldChar, char newChar) cons
     int stringLen = strlen(aString);
     for(int i = 0;i<stringLen;++i)
     {
+        aString[i] = tolower(aString[i]);
         if(aString[i]==oldChar)
         {
             aString[i] = newChar;
@@ -472,6 +473,7 @@ void Catalogue::replaceCharacter(std::string& aString, char oldChar, char newCha
     int stringLen = aString.length();
     for (int i = 0; i < stringLen; ++i)
     {
+        aString[i] = tolower(aString[i]);
         if (aString[i] == oldChar)
         {
             aString[i] = newChar;
