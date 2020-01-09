@@ -1,0 +1,4 @@
+3
+0 Lyon Bordeaux Train
+0 Lyon Paris Auto
+1 Lyon Paris Bateau Marseille Avion 
