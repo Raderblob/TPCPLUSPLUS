@@ -44,17 +44,17 @@ int Catalogue::FindPath() const
 }
 
 template <typename T>
-void Catalogue::readInput(T& dest) const
+void Catalogue::readInput(T& dest, istream& input) const
 {
     do {
-        if (cin.fail())
+        if (input.fail())
         {
-            cin.clear();
-            cin.ignore(INPUTBUFFER, '\n');
+            input.clear();
+            input.ignore(INPUTBUFFER, '\n');
             cout << "input wrong try again" << endl;
         }
-        cin >> dest;
-    } while (cin.fail());
+        input >> dest;
+    } while (input.fail());
 }
 
 bool Catalogue::SaveCatalogue(ostream& out) const
@@ -261,7 +261,7 @@ void Catalogue::AddTrip(istream& input, bool echo, char inputDelimiter)
         cout << "Number of stopoff points\n";
     }
 
-    readInput(numStops);
+    readInput(numStops, input);
 
     if(echo)
     {
