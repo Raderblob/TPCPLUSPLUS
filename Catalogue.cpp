@@ -43,19 +43,7 @@ int Catalogue::FindPath() const
     return findPath(buffer1, buffer2);
 }
 
-template <typename T>
-void Catalogue::readInput(T& dest) const
-{
-    do {
-        if (cin.fail())
-        {
-            cin.clear();
-            cin.ignore(INPUTBUFFER, '\n');
-            cout << "input wrong try again" << endl;
-        }
-        cin >> dest;
-    } while (cin.fail());
-}
+
 
 bool Catalogue::SaveCatalogue(ostream& out) const
 {
@@ -115,9 +103,9 @@ bool Catalogue::SaveCatalogue(ostream& out) const
     if(strcmp(buffer,"no"))
     {
         cout<<"Start interval(Starts at 0):"<<endl;
-        readInput(startInterval);
+        readInput(startInterval,cin);
         cout<<"end interval:"<<endl;
-        readInput(endInterval);
+        readInput(endInterval,cin);
     }
 
     stringstream tempOut;
@@ -177,9 +165,9 @@ bool Catalogue::LoadCatalogue(std::istream &in)
     if(buffer=="yes")
     {
         cout<<"Start limit: (starts at 0)"<<endl;
-        readInput(startLimit);
+        readInput(startLimit,cin);
         cout<<"endLimit: "<<endl;
-        readInput(endLimit);
+        readInput(endLimit,cin);
     }
 
     cout<<"Load only trips from a certain start town?(yes/no)"<<endl;
@@ -261,7 +249,8 @@ void Catalogue::AddTrip(istream& input, bool echo, char inputDelimiter)
         cout << "Number of stopoff points\n";
     }
 
-    readInput(numStops);
+    readInput(numStops,input);
+    numStops = abs(numStops);
 
     if(echo)
     {
@@ -361,6 +350,22 @@ Catalogue::~Catalogue()
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
+
+
+template <typename T>
+void Catalogue::readInput(T& dest,istream& in) const
+{
+    do {
+        if (in.fail())
+        {
+            in.clear();
+            in.ignore(INPUTBUFFER, '\n');
+            cout << "input wrong try again" << endl;
+        }
+        in >> dest;
+    } while (in.fail());
+}
+
 void Catalogue::addTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport)
 {
     Town* i,*o;
