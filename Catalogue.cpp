@@ -509,4 +509,3 @@ void Catalogue::replaceCharacter(std::string& aString, char oldChar, char newCha
         }
     }
 }
-
