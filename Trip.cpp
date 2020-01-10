@@ -68,11 +68,17 @@ Trip::Trip(Town* begin, Town* end, const char* how)
 	means = new char[strlen(how) + 1];
 	strcpy(means, how);
 	isSimple=true;
+#ifdef MAP
+    cout << "Appel au constructeur de <Trip>" << endl;
+#endif
 }
 
 
 Trip::~Trip()
 {
+#ifdef MAP
+    cout << "Appel au destructeur de <Trip>" << endl;
+#endif
 	delete[] means;
 }
 //------------------------------------------------------------------ PRIVE

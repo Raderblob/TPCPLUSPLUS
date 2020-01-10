@@ -338,11 +338,16 @@ void Catalogue::ShowTrips() const
 //-------------------------------------------- Constructeurs - destructeur
 Catalogue::Catalogue()
 {
-
+#ifdef MAP
+    cout << "Appel au constructeur de <Catalogue>" << endl;
+#endif
 }
 
 Catalogue::~Catalogue()
 {
+#ifdef MAP
+    cout << "Appel au destructeur de <Catalogue>" << endl;
+#endif
 }
 
 

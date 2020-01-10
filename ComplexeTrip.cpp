@@ -72,6 +72,10 @@ ComplexeTrip::ComplexeTrip(Town* begin, Town* end, const char* how, Town** stops
 		strcpy(stopOffs[i].method, stopMeans[i]);
 	}
 	isSimple=false;
+
+#ifdef MAP
+	cout << "Appel au constructeur de <ComplexeTrip>" << endl;
+#endif
 }
 
 ComplexeTrip::~ComplexeTrip()
@@ -81,6 +85,10 @@ ComplexeTrip::~ComplexeTrip()
 		delete[] stopOffs[i].method;
 	}
 	delete[] stopOffs;
+
+#ifdef MAP
+	cout << "Appel au destructeur de <ComplexeTrip>" << endl;
+#endif
 }
 
 //------------------------------------------------------------------ PRIVE

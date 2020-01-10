@@ -141,11 +141,17 @@ Town::Town(const char* tName)
 	strcpy(myName, tName);
 	myId = idCounter++;
 	numTrips=0;
+#ifdef MAP
+    cout << "Appel au constructeur de <Town>" << endl;
+#endif
 }
 
 
 Town::~Town()
 {
+#ifdef MAP
+    cout << "Appel au destructeur de <Town>" << endl;
+#endif
 	delete[] myName;
 }
 

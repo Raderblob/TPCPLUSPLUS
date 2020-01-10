@@ -67,13 +67,18 @@ private:
 template<class T>
 inline Iterator<T>::Iterator(const LinkedList<T>& aList)
 {
+#ifdef MAP
+    cout << "Appel au constructeur de <Iterator>" << endl;
+#endif
     myData = aList.root;
 }
 
 template<class T>
 inline Iterator<T>::~Iterator()
 {
-
+#ifdef MAP
+    cout << "Appel au destructeur de <Iterator>" << endl;
+#endif
 }
 
 template<class T>
