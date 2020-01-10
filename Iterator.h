@@ -14,6 +14,7 @@
 //--------------------------------------------------- Interfaces utilisées
 template<class T>
 class LinkedList;
+#include <iostream>
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -68,7 +69,7 @@ template<class T>
 inline Iterator<T>::Iterator(const LinkedList<T>& aList)
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <Iterator>" << endl;
+    std::cout << "Appel au constructeur de <Iterator>" << std::endl;
 #endif
     myData = aList.root;
 }
@@ -77,7 +78,7 @@ template<class T>
 inline Iterator<T>::~Iterator()
 {
 #ifdef MAP
-    cout << "Appel au destructeur de <Iterator>" << endl;
+    std::cout << "Appel au destructeur de <Iterator>" << std::endl;
 #endif
 }
 

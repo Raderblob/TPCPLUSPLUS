@@ -188,7 +188,7 @@ inline LinkedList<T>::LinkedList(bool clearOnDeletion)
 	cursor = nullptr;
 	deleteContentsOnDeletion = clearOnDeletion;
 #ifdef MAP
-	cout << "Appel au constructeur de <LinkedList>" << endl;
+	std::cout << "Appel au constructeur de <LinkedList>" << std::endl;
 #endif
 }
 
@@ -196,7 +196,7 @@ template<class T>
 inline LinkedList<T>::LinkedList(const LinkedList<T>& oList)
 {
 #ifdef MAP
-	cout << "Appel au constructeur de <LinkedList>" << endl;
+	std::cout << "Appel au constructeur de <LinkedList>" << std::endl;
 #endif
 	root = nullptr;
 	numItems = 0;
@@ -216,7 +216,7 @@ template<class T>
 inline LinkedList<T>::~LinkedList()
 {
 #ifdef MAP
-	cout << "Appel au destructeur de <LinkedList>" << endl;
+	std::cout << "Appel au destructeur de <LinkedList>" << std::endl;
 #endif
 		Item<T>* first = root;
 		Item<T>* next;
