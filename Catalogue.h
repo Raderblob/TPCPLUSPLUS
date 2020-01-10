@@ -76,7 +76,7 @@ private:
 //----------------------------------------------------- Méthodes protégées
 
     template <typename T>
-    void readInput(T& dest,std::istream& in) const;
+    void readInput(T& dest,std::istream& in = std::cin) const;
 
     void addTrip(const char* startingPoint, const char* finishingPoint, const char* meansOfTransport);
 

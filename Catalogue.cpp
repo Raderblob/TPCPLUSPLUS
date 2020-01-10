@@ -103,9 +103,9 @@ bool Catalogue::SaveCatalogue(ostream& out) const
     if(strcmp(buffer,"no"))
     {
         cout<<"Start interval(Starts at 0):"<<endl;
-        readInput(startInterval,cin);
+        readInput(startInterval);
         cout<<"end interval:"<<endl;
-        readInput(endInterval,cin);
+        readInput(endInterval);
     }
 
     stringstream tempOut;
@@ -165,9 +165,9 @@ bool Catalogue::LoadCatalogue(std::istream &in)
     if(buffer=="yes")
     {
         cout<<"Start limit: (starts at 0)"<<endl;
-        readInput(startLimit,cin);
+        readInput(startLimit);
         cout<<"endLimit: "<<endl;
-        readInput(endLimit,cin);
+        readInput(endLimit);
     }
 
     cout<<"Load only trips from a certain start town?(yes/no)"<<endl;
@@ -358,7 +358,7 @@ Catalogue::~Catalogue()
 
 
 template <typename T>
-void Catalogue::readInput(T& dest,istream& in) const
+void Catalogue::readInput(T& dest, istream& in) const
 {
     do {
         if (in.fail())
